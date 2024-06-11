@@ -1,0 +1,239 @@
+\RequirePackage{geometry}
+\geometry{paperwidth=16cm,paperheight=9cm}
+
+%\usepackage{array}
+\usepackage{tabularx}
+\usepackage{amsfonts,amsmath,oldgerm}
+
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{tikz}
+\usepackage{pdfrender}
+%\usepackage{ragged2e}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    citecolor=black,
+    pdfpagemode=FullScreen,
+}
+
+\usepackage[absolute,overlay]{textpos}
+
+
+\usepackage{Config/style/colors}
+\usepackage{Config/style/theme}
+
+
+\setbeamertemplate{itemize item}{\color{black}\textbullet}
+\setbeamertemplate{itemize subitem}{\color{black}\ensuremath{\circ}}
+\setbeamertemplate{itemize subsubitem}{\color{black}\ensuremath{\diamond}}
+
+
+% #==> STYLE TITLE PAGE
+\newcommand{\singleAuthor}[1]{\def\insertSingleAuthor{#1}}
+\newcommand{\multAuthors}[1]{\def\insertMultAuthor{#1}}
+\newcommand{\AuthorInstitute}[1]{\def \insertAuthorInstitute {\ifstrempty{#1}{}{\\#1}}}
+\newcommand{\Supervisors}[1]{\def \insertSupervisors {\ifstrempty{#1}{}{\\{\and} \\{\textit{Supervisor(s):}} \\#1}}}
+\newcommand{\Collaborators}[1]{\def \insertCollaborators {\ifstrempty{#1}{}{\\{\and} \\{\textit{Collaborator(s):}} \\#1}}}
+\singleAuthor{} %default value
+\multAuthors{} %default value
+\AuthorInstitute{} %default value
+\Supervisors{} %default value
+\Collaborators{} %default value
+
+\newcommand{\insertAuthor}[0]{\ifx\insertSingleAuthor\empty\insertMultAuthor\else\insertSingleAuthor\fi}
+
+\author{\insertAuthor\insertAuthorInstitute\insertCollaborators\insertSupervisors}
+
+\setbeamertemplate{title page}{%
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0] at (current page.center)
+    {\useBackgroundTitle};
+    \node[anchor=west] at ([xshift=0.06\paperwidth]current page.west) (pres-info)
+    {\parbox[t]{.6\paperwidth}
+        {\begin{tabular}{m{9cm}}
+        \hline \\
+        {\raggedright\bfseries 
+            \usebeamerfont{title}\textcolor{\useMainColor}{%
+            \textpdfrender{
+            LineWidth=.1ex,
+            }{\inserttitle}}} \\
+        {\raggedright\itshape 
+            \usebeamerfont{subtitle}\textcolor{\useMainColor}{%
+            \textpdfrender{
+            LineWidth=.1ex,
+            }{\insertsubtitle}}} \\
+        {\raggedright 
+            \footnotesize\usebeamerfont{author}\textcolor{black}{%
+            \textpdfrender{
+            LineWidth=.1ex,
+            }{\insertauthor}}} \\
+            \\
+            \hline
+        \end{tabular}}
+    };
+    \node[anchor=north east] at ([xshift=-0.01\paperwidth, yshift=-0.03\paperheight]current page.north east) (institutions-infos)
+    {\parbox[t]{.25\paperwidth} 
+        {\raggedright%
+            \usebeamerfont{institute}\textcolor{ur-background-grey}{ %
+            \ifx\insertinstitute\@empty%
+              { }%
+            \else%
+              {Partner Institutions :\\
+              \textpdfrender{
+              LineWidth=.1ex,
+              }{\insertinstitute}}
+            \fi}}
+    };
+    \end{tikzpicture}
+}
+
+
+% #===> STYLE SIDEPIC ENCIRONMENT
+\newenvironment{sidepic}[2]{% Args: image, frame title
+  \begingroup
+  \setbeamercolor{frametitle}{fg=\useMainColor}
+
+    \setbeamertemplate{frametitle}{
+        \vspace{0.02\paperheight}
+        {\parbox[t]{.5\paperwidth} 
+        {\raggedright%
+            {\Large\bfseries\insertframetitle}\\
+            {\small\itshape\insertframesubtitle}
+            \vspace{0.01\paperheight}}
+        }
+        \hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}
+        \textcolor{black}{\rule{0.59\paperwidth}{1pt}}
+    }
+  \setbeamertemplate{background}{%
+    {\useBackground}
+  \begin{textblock*}{6.25cm}(9.75cm,0cm)
+        \includegraphics[height=\paperheight]{#1}%
+    \end{textblock*}
+  }
+  \begin{frame}{#2}
+  \minipage{0.6\textwidth}%
+}{%
+  \endminipage
+  \end{frame}
+  \endgroup
+}
+
+% #===> STYLE NORMAL FRAMES
+%Background
+%\setbeamercolor{background canvas}{bg=ur-background-grey}
+\defbeamertemplate{background}{background-body}{
+    \useBackground
+    \begin{textblock*}{2.5cm}[0.5,0.5](14.75cm,0.35cm)
+        \begin{center}
+            \usebeamerfont{author}\scriptsize\textcolor{ur-grey}{\insertSingleAuthor}
+        \end{center}
+    \end{textblock*}
+}
+
+%Footline
+\defbeamertemplate{footline}{footline-body}{%
+    \begin{textblock*}{15cm}(0.05cm,8.5cm)
+        \scriptsize \insertframenumber/\inserttotalframenumber
+    \end{textblock*}
+}
+
+%Title
+\setbeamercolor{frametitle}{fg=\useMainColor}
+
+\setbeamertemplate{frametitle}{
+    \vspace{0.02\paperheight}
+    {\parbox[t]{.73\paperwidth} 
+    {\raggedright%
+        {\Large\bfseries\insertframetitle}\\
+        {\small\itshape\insertframesubtitle}
+        \vspace{0.01\paperheight}}
+    } 
+    \hspace*{-\dimexpr0.5\paperwidth-0.5\textwidth}
+    \textcolor{black}{\rule{0.83\paperwidth}{1pt}}
+}
+
+
+\makeatletter
+    \pretocmd\beamer@checkframetitle{\framesubtitle{\ifx\insertsection\empty {} \else {\thesection \, \secname} \fi}}
+\makeatother
+
+% #===> STYLE BACK MATTER
+
+\newcommand{\backmatter}[1][]{
+    \begingroup
+    \setbeamertemplate{footline}{}
+    \setbeamertemplate{background}{\useBackgroundBack}
+    
+    \begin{frame}
+    \begin{textblock*}{16cm}[0.5,0.5](8cm,4.5cm)
+        \begin{center}
+        {\begin{tabularx}{0.8\paperwidth}{>{\centering\arraybackslash}X}
+        {\bfseries 
+        \usebeamerfont{title}\textcolor{white}{%
+        \textpdfrender{
+            TextRenderingMode=FillStroke,
+            FillColor=white,
+            LineWidth=.05ex,
+        }{\inserttitle}}} \\
+            
+            \\
+        {\usebeamerfont{subtitle}\textcolor{ur-background-grey}{Thank you for listening !}}\\
+        {\usebeamerfont{subtitle}\textcolor{ur-background-grey}{Any Questions ?}}\\
+        \end{tabularx}}
+        \end{center}
+    \end{textblock*}
+    \end{frame}
+    \endgroup
+}
+
+% #===> STYLE SECTIONS
+\setbeamercolor{section in toc}{fg=black}
+\setbeamertemplate{section in toc}{$\blacktriangleright$~\inserttocsection}
+\AtBeginSection[]
+{
+    \begingroup
+    \setbeamertemplate{background}{
+        \useBackgroundSec
+    }
+    \setbeamercolor{frametitle}{fg=\useMainColor}
+    \setbeamertemplate{frametitle}{
+        \vspace{0.1\paperheight}
+        \hspace{0.05\paperwidth}
+        {\parbox[t]{.73\paperwidth} 
+            {\raggedright%
+                {\Large\bfseries\textpdfrender{
+                TextRenderingMode=FillStroke,
+                FillColor=\useMainColor,
+                LineWidth=.05ex,
+                }{\insertframetitle}}\\
+                %{\small\itshape\insertframesubtitle}
+            }
+        }
+    }
+    \begin{frame}{Table of Contents}
+        \tableofcontents[sectionstyle=show/shaded]
+    \end{frame}
+    \endgroup
+}
+
+% #===> UTILS
+
+\setbeamercolor{block title}{fg=ur-background-grey,bg=ur-grey}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamerfont{block title}{series=\centering\bfseries}
+\setbeamertemplate{blocks}[rounded]
+\newenvironment{colorblock}[3][white]{%
+	\begingroup
+	\setbeamercolor{block title}{fg=#1,bg=#2}
+	\setbeamercolor{block body} {fg=#1,bg=#2}
+	\begin{block}{#3}
+	}{%
+	\end{block}
+	\endgroup
+}
+

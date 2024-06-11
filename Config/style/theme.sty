@@ -104,10 +104,11 @@
 \newenvironment{themedTitleBlock}[1]{%
 	\begingroup
 	\setbeamercolor{block title}{fg=\useBlockTitleWriteColor,bg=\useBlockTitleColor}
-	\setbeamercolor{block body} {fg=black,bg=\useBlockMainColor}
-	\begin{block}{#1}
+	\setbeamercolor{block body}{fg=black,bg=\useBlockMainColor}
+	\begin{beamerboxesrounded}[shadow=true]{#1}
 	}{%
-	\end{block}
+	\end{beamerboxesrounded}
+    \vspace{0.08cm}
 	\endgroup
 }
 
@@ -115,8 +116,9 @@
 	\begingroup
 	\setbeamercolor{block title}{fg=\useBlockTitleWriteColor,bg=\useBlockTitleColor}
 	\setbeamercolor{block body} {fg=\useBlockTitleWriteColor,bg=\useBlockTitleColor}
-	\begin{block}{#1}
+	\begin{beamerboxesrounded}[shadow=true]{#1}
 	}{%
-	\end{block}
+	\end{beamerboxesrounded}
+    \vspace{0.08cm}
 	\endgroup
 }

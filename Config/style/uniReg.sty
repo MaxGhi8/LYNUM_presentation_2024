@@ -37,7 +37,7 @@
 \newcommand{\singleAuthor}[1]{\def\insertSingleAuthor{#1}}
 \newcommand{\multAuthors}[1]{\def\insertMultAuthor{#1}}
 \newcommand{\AuthorInstitute}[1]{\def \insertAuthorInstitute {\ifstrempty{#1}{}{\\#1}}}
-\newcommand{\Supervisors}[1]{\def \insertSupervisors {\ifstrempty{#1}{}{\\{\and} \\{\textit{Supervisors:}} \\#1}}}
+\newcommand{\Supervisors}[1]{\def \insertSupervisors {\ifstrempty{#1}{}{\\{\and} \\{\textit{Joint work with:}} \\#1}}}
 \newcommand{\Collaborators}[1]{\def \insertCollaborators {\ifstrempty{#1}{}{\\{\and} \\{\textit{Collaborator(s):}} \\#1}}}
 \singleAuthor{} %default value
 \multAuthors{} %default value
@@ -144,7 +144,6 @@
 
 %Title
 \setbeamercolor{frametitle}{fg=\useMainColor}
-
 \setbeamertemplate{frametitle}{
     \vspace{0.02\paperheight}
     {\parbox[t]{.73\paperwidth} 
@@ -179,7 +178,7 @@
             TextRenderingMode=FillStroke,
             FillColor=white,
             LineWidth=.05ex,
-        }{\inserttitle}}} \\
+        }{\mbox{\inserttitle}}}} \\
             \vspace{0.6cm}
         {\usebeamerfont{subtitle}\textcolor{ur-background-grey}{\Huge{\textbf{Thank you for listening!}}}}\\
         % {\usebeamerfont{subtitle}\textcolor{ur-background-grey}{Any Questions ?}}\\

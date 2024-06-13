@@ -59,20 +59,20 @@
 % \cite{kovachki2021neural}\blfootnote{\cite{kovachki2021neural}, Kovachki et al., "Neural operator: Learning maps between function spaces".}
 \begin{frame}[t]{Definition of Neural Operator}
 	\vspace{-0.5cm}
-	\[ \mathcal{N}_{\theta} :\mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{u}}), \quad	\mathcal{N}_{\theta} := \mathcal{Q} \circ \mathcal{L}_L \circ \cdots \circ \mathcal{L}_1 \circ \mathcal{R} . \]
+	\[ \mathcal{N}_{\theta} :\mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{u}}), \quad \text{with } D \subset \R^d, \quad	\mathcal{N}_{\theta} := \mathcal{Q} \circ \mathcal{L}_L \circ \cdots \circ \mathcal{L}_1 \circ \mathcal{P} . \]
 	\vspace{-0.2cm}
 	\begin{enumerate}
 		\item \textbf{Lifting:} linear and local operator 
-			\[\mathcal{R}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v_1}}), \quad  \mathcal{R}(a)(x) = R\cdot a(x), \ R \in \R^{d_{v_1} \times d_a} \]
+			\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = P\cdot a(x), \ P \in \R^{d_{v} \times d_a} \]
 	\vspace{-0.2cm}
 		\pause
 		\item \textbf{Integral operator:} for $ t = 1, \dots, L $
-		\[ \mathcal{L}_t : \, \mathcal{U}(D, \R^{d_{v_t}}) \to  \mathcal{U}(D, \R^{d_{v_{t}}}) \]
+		\[ \mathcal{L}_t : \, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{v}}) \]
 		\[  \mathcal{L}_t(v)(x) := \sigma\Big( W_t v(x)+ b_t(x) + (\mathcal{K}_t(a, \theta) v)(x) \Big) \]
 		with $ \mathcal{K}_t(a, \theta) $ linear and non-local operator.  
 		\pause
 		\item \textbf{Projection:} linear and local operator 
-		\[\mathcal{Q}:\, \mathcal{U}(D_{L}, \R^{d_{v_L}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v_L)(x) = Q\cdot v_L(x), \ Q \in \R^{d_{v_u} \times d_{v_L}}. \]		
+		\[\mathcal{Q}:\, \mathcal{U}(D_{L}, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = Q\cdot v(x), \ Q \in \R^{d_{v_u} \times d_{v}}. \]		
 	\end{enumerate}
 \end{frame}
 
@@ -81,14 +81,14 @@
 \begin{frame}{Integral operator}
 	There are different ways to define the integral operator $ \mathcal{K}_t $:
 	\begin{itemize}
-		\item defining $ \kappa_{t,\theta} \in C(D\times D,\, \R^{d_{v_{t}}\times d_{v_t}}) $
-		\[ (\mathcal{K}_t(a, \theta)v_t)(x) = (\mathcal{K}_t(\theta)v_t)(x) = \int_{D} \kappa_{t,\theta}(x, y) v_{t}(y) \ d\mu_t(y).\]
+		\item defining $ \kappa_{t,\theta} \in C(D\times D,\, \R^{d_{v}\times d_{v}}) $
+		\[ (\mathcal{K}_t(a, \theta)v)(x) = (\mathcal{K}_t(\theta)v)(x) = \int_{D} \kappa_{t,\theta}(x, y) v(y) \ d\mu_t(y).\]
 		\pause
-		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_a} \times \R^{d_a},\, \R^{d_{v_{t}}\times d_{v_t}}) $
-		\[	(\mathcal{K}_t(a, \theta)v_t)(x) = \int_{D} \kappa_{t, \theta}\left( x, y, a\left(x\right), a\left(y\right) \right)v_t(y)  \ d\mu_t(y).\]
+		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_a} \times \R^{d_a},\, \R^{d_{v}\times d_{v}}) $
+		\[	(\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t, \theta}\left( x, y, a\left(x\right), a\left(y\right) \right)v(y)  \ d\mu_t(y).\]
 		\pause
-		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_{v_t}} \times \R^{d_{v_t}},\, \R^{d_{v_{t}}\times d_{v_t}}) $
-		\[ (\mathcal{K}_t(a, \theta)v_t)(x) = \int_{D} \kappa_{t,\theta}\left( x, y, v_{t}\left(x\right), v_t(y) \right) v_t(y)  \ d\mu_t(y). \]
+		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_{v}} \times \R^{d_{v}},\, \R^{d_{v}\times d_{v}}) $
+		\[ (\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t,\theta}\left( x, y, v\left(x\right), v(y) \right) v(y)  \ d\mu_t(y). \]
 	\end{itemize}
 \end{frame}
 
@@ -111,18 +111,61 @@
 \section{Fourier Neural Operator}
 %% ======================================
 
-\begin{frame}{Definition of Fourier Neural Operator (FNO)}
-	For defining the Fourier Neural Operator we make the first assumption and the further assumption that $\kappa_{t,\theta}(x, y) = \kappa_{t,\theta}(x -y)$,
-	\[ (\mathcal{K}_t(a, \theta)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta}(x-y) v(y) \ dy = (\kappa_{t, \theta} * v)(x)  .\]
+\begin{frame}{Definition of Fourier Neural Operator}
+	For defining the Fourier Neural Operator (FNO) we make the first assumption and the further assumption that $\kappa_{t,\theta_t}(x, y) = \kappa_{t,\theta_t}(x -y)$,
+	\[ (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x-y) v(y) \ dy = (\kappa_{t, \theta_t} * v)(x)  .\]
+	\pause
 	Using the convolution theorem we have
-	\[ (\kappa_{t, \theta} * v)(x) =  \mathcal{F}^{-1}\left( \mathcal{F}( \kappa_{t,\theta}) (k) \cdot \mathcal{F}(v)(k) \right)(x), \]
-	and parameterizing $\mathcal{F}( \kappa_{t, \theta} )$ with the parameters $P_{\theta}(k) \in \C^{d_v \times d_v} \ \forall k $ we have  
-	\[  (\mathcal{K}_t(a, \theta)v)(x)= \mathcal{F}^{-1}\left( P_{\theta}(k) \cdot \mathcal{F}(v)(k) \right)(x) \]
+	\[ (\kappa_{t, \theta_t} * v)(x) =  \mathcal{F}^{-1}\left( \mathcal{F}( \kappa_{t,\theta_t}) (k) \cdot \mathcal{F}(v)(k) \right)(x), \]
+	and parameterizing $\mathcal{F}( \kappa_{t, \theta_t} )$ with the parameters $R_{\theta_t}(k) \in \C^{d_v \times d_v} \ \forall k \in \Z^d $, we have 
+	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{F}^{-1}\left( R_{\theta_t}(k) \cdot \mathcal{F}(v)(k) \right)(x) \]
 \end{frame}
 
 %% ======================================
 
-\begin{frame}{Fourier Neural Operator}
+\begin{frame}{Universal approximation for FNOs}% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
+\begin{themedTitleBlock}{Universal approximation theorem} % \cite{kovachki2021universal}
+	Given $ s, s' \ge 0 $ and 
+	\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
+	continuous operator. Given $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ a compact subset and $ \sigma \in \C^{\infty}(\R) $ non-linear and globally Lipschitz activation function. Then, for all $ \varepsilon > 0 $, exists a Fourier Neural Operator
+	\[ \mathcal{N}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
+	such that:
+	\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
+\end{themedTitleBlock}	
+\end{frame}
+
+%% ======================================
+
+\begin{frame}{Pseudo Spectral Fourier Neural Operator}
+	Pseudo Spectral Fourier Neural Operator ($\psi$-FNO) is a map
+	\[ \mathcal{N}^{*}: \mathcal{A}(\mathbb{T}^d, \R^{d_a}) \to \mathcal{U}(\mathbb{T}^d, \R^{d_u}), \qquad a \mapsto \mathcal{N}^{*}(a), \]
+	defined by	
+	\[\mathcal{N}^{*}(a) = \mathcal{Q} \circ I_N \circ \mathcal{L}_L \circ I_N \circ \dots \circ \mathcal{L}_1 \circ I_N \circ \mathcal{R}(a),	\]
+	where $ I_N $ denotes the pseudo-spectral projection on the Fourier polynomials of degree $N$
+	\[ I_N : C(\mathbb{T}^d) \to L^{2}_{N}(\mathbb{T}^{d}), \quad u \mapsto I_Nu. \]
+	\pause
+	So a $ \psi $-FNO can be identified with a finite-dimensional map 
+	\[ \widetilde{\mathcal{N}}^{*}: \R^{d_a \times \mathcal{I}_N} \to \R^{d_u \times \mathcal{I}_N}, \quad \widetilde{\mathcal{N}}^{*}(a)_j = \mathcal{N}^{*}(a)(x_j) \quad \forall j \in \mathcal{I}_N, \]
+	where the input $a = \{a_j\}_{j\in \mathcal{I}_N}$, $a_j = a(x_j)$ and $ \mathcal{I}_N = \left\lbrace 1, \dots, 2N \right\rbrace^d $.
+\end{frame}
+
+%% ======================================
+
+\begin{frame}{Universal approximation for $\psi$-FNOs}
+	% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
+	\begin{themedTitleBlock}{Universal approximation for $\psi$-FNOs} %\cite{kovachki2021universal}
+		Given $ s > d/2$ , $ s' \ge 0 $ and 
+		\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
+		continuous operator. Given $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ a compact set and $ \sigma \in \C^{\infty}(\R) $ a non-linear and globally Lipschitz continuous function. Then, for any $ \varepsilon > 0 $, exists an $ N \in \N $ such that the $ \psi $-FNO 
+		\[ \mathcal{N}^{*}: L^2_N(\mathbb{T}^d, \R^{d_a}) \to L^2_N(\mathbb{T}^d, \R^{d_u}) \]
+		satisfy:
+		\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}^{*}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
+	\end{themedTitleBlock}	
+\end{frame}
+
+%% ======================================
+
+\begin{frame}{Representation of $\psi$-FNO}
     \begin{center}
     \begin{tikzpicture}
         \tikzset{
@@ -159,7 +202,7 @@
 		\node[draw, below=0.2cm of internal, rounded corners, inner sep=0.2cm, fill=yellow!30] (internal) {
 			\begin{tikzpicture}[every node/.style={font=\small}]
 				% Nodes for the internal structure
-				\node[box] (vt) {$v_{t}(x)$};
+				\node[box] (vt) {$v(x)$};
 				\node[box, right=1cm of vt] (transform) {$\mathcal{F}$};
 				\node[box, right=0.5cm of transform, fill=green!25] (nonlinear) { $ R_{\theta_t} $ };
 				\node[box, right=0.5cm of nonlinear] (invtransform) { $ \mathcal{F}^{-1} $ };
@@ -170,7 +213,7 @@
 
 				\node[node_sum, right=0.5cm of invtransform] (node_sum) {$\mathbf{+}$};
 				\node[box, right=0.5cm of node_sum] (activation) {$\sigma$};
-				\node[box, right=0.5cm of activation] (vtplusone) {$v_{t+1}(x)$};
+				\node[box, right=0.5cm of activation] (vtplusone) {$v(x)$};
 				
 				% Draw arrows between nodes
 				\draw[line width = .7pt] ($(vt.east)+(0.05, 0)$) -- (diagonalscaling);
@@ -193,199 +236,206 @@
 
 %% ======================================
 
-\begin{frame}{}% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
-\begin{themedTitleBlock}{Teorema di approssimazione universale per le FNO} % \cite{kovachki2021universal}
-	Siano $ s, s' \ge 0 $ e 
-	\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
-	un operatore continuo. Siano $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ un insieme compatto e $ \sigma \in \C^{\infty}(\R) $ funzione di attivazione  non polinomiale e globalmente Lipschitz. Allora, per ogni $ \varepsilon > 0 $, esiste un operatore continuo con struttura data da una FNO 
-	\[ \mathcal{N}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
-	tale che:
-	\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
-\end{themedTitleBlock}	
-\end{frame}
+\section{Multi-patch domains}
 
 %% ======================================
 
-\begin{frame}{Pseudo Operatori Neurali di Fourier ($ \psi $-FNO)}
-	Uno pseudo-operatore di Fourier è una mappa
-	\[ \mathcal{N}^{*}: \mathcal{A}(\mathbb{T}^d, \R^{d_a}) \to \mathcal{U}(\mathbb{T}^d, \R^{d_u}), \qquad a \mapsto \mathcal{N}^{*}(a), \]
-	della forma
-	\[\mathcal{N}^{*}(a) = \mathcal{Q} \circ I_N \circ \mathcal{L}_L \circ I_N \circ \dots \circ \mathcal{L}_1 \circ I_N \circ \mathcal{R}(a),	\]
-	dove $ I_N $ denota la proiezione pseudo-spettrale di Fourier di grado $ N $
-	\[ I_N : C(\mathbb{T}^d) \to L^{2}_{N}(\mathbb{T}^{d}), \quad u \mapsto I_Nu. \]
-	Uno $ \psi $-FNO si può identificare con una mappa finita dimensionale
-	\[ \widetilde{\mathcal{N}}^{*}: \R^{d_a \times \mathcal{I}_N} \to \R^{d_a \times \mathcal{I}_N}, \quad \widetilde{\mathcal{N}}^{*}:a \mapsto \widetilde{\mathcal{N}}^{*}(a)  \]
-	\[ \widetilde{\mathcal{N}}^{*}(a)_j = \mathcal{N}^{*}(a)(x_j) \]
-\end{frame}
-%% ======================================
-
-\begin{frame}
-	% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
-	\vspace{-0.2cm}
-	\begin{themedTitleBlock}{Teorema di approssimazione universale per le $ \psi $-FNO } %\cite{kovachki2021universal}
-		Siano $ s > d/2$ , $ s' \ge 0 $ e 
-		\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
-		un operatore continuo. Siano $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ un insieme compatto e $ \sigma \in \C^{\infty}(\R) $ una funzione di attivazione non polinomiale e globalmente Lipschitz. Allora, per ogni $ \varepsilon > 0 $, esiste un $ N \in \N $ tale che la $ \psi $-FNO 
-		\[ \mathcal{N}^{*}: L^2_N(\mathbb{T}^d, \R^{d_a}) \to L^2_N(\mathbb{T}^d, \R^{d_u}) \]
-		soddisfa:
-		\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}^{*}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
-	\end{themedTitleBlock}	
-\end{frame}
-%% ======================================
-
-\begin{frame}
-	% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
-	\vspace{-0.2cm}
-	\begin{themedTitleBlock}{Teorema} % \cite{kovachki2021universal}
-		Sia $ s > d/2 $, $ \lambda \in (0,1) $ e consideriamo l'operatore soluzione del problema di Darcy
-		\[ \mathcal{G}: \mathcal{A}_{\lambda}^{s}(\mathbb{T}^d) \to H^1(\mathbb{T}^d). \]
-		Fissata $ \sigma \in C^3(\R) $ non polinomiale per ogni $ N \in \N $ esiste $ C > 0 $ e una $ \psi $-FNO
-		\[ \mathcal{N}^{*}: \mathcal{A}_{\lambda}^{s}(\mathbb{T}^d) \to H^1(\mathbb{T}^d)  \]
-		tale che
-		\[ \underset{a \in \mathcal{A}_{\lambda}^{s}}{sup} \left\| \mathcal{G}(a) - \mathcal{N}^{*}(a) \right\|_{H^1(\mathbb{T}^d)} \le CN^{-k} \]
-		e $\ \mathrm{depth}(\mathcal{N}^{*}) \le C \log(N) $, $\  \mathrm{lift}(\mathcal{N}^{*}) \le C $, $\ \mathrm{size}(\mathcal{N}^{*}) \lesssim N^d\log(N). $
+\begin{frame}{Fourier continuation}
+	FNOs are limited to rectangular domains. To extend the operator to irregular domains, we can extend the domain to a larger rectangular domain and training the FNO to approximate the solution only on the original domain.
+	\begin{themedTitleBlock}{Periodic extension operator}
+		Let $\Omega \subset \R^d$ be a bounded and Lipschitz domain. There exists a continuous. linear operator $\mathcal{E}: W^{m,p}(\Omega) \to W^{m,p}(B)$ for any $m \ge 0$ and $1 \le p < \infty$, where $B$ is an hyper-cube containing $\Omega$, such that, for any $u \in W^{m,p}(\Omega)$:
+		\begin{itemize}
+			\item $\mathcal{E}(u)_{|_{\Omega}} = u$, 
+			\item $\mathcal{E}(u)$ is periodic on $B$, including its derivatives.
+		\end{itemize}
 	\end{themedTitleBlock}
+	\pause	
+	But this can be computationally expensive.
+
 \end{frame}
+
+
 %% ======================================
 
-\section{Problema di Darcy}
+\begin{frame}{Chebyshev Neural Operator}
+	Let $ D \subset \R^d $ be a bounded domain. The Chebyshev Neural Operator (CNO) is a map
+	\[ \mathcal{N}_{\theta}: \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_u}), \]
+	defined by
+	\[ \mathcal{N}_{\theta}(a) = \mathcal{Q} \circ \mathcal{L}_L \circ \cdots \circ \mathcal{L}_1 \circ \mathcal{P}(a), \]
+	where is all defined as the FNO but in the integral operator we use the Chebyshev transfor and anti-transform instead of the Fourier transform, i.e.
+	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{C}^{-1}\left( R_{\theta_t}(k) \cdot \mathcal{C}(v)(k) \right)(x), \quad R_{\theta_t}(k) \in \R^{d_v \times d_v} \ \forall k \in \N^d. \]
+	\pause 
+	At the discrete level, we can define the Pseudo Spectral Chebyshev Neural Operator ($\psi$-CNO) as before, with the difference that the grid $ \mathcal{I}_N $ is defined on a Chebyshev grid and not on an uniform one.
+\end{frame}
+
+%% ======================================
+
+\begin{frame}{Multi-patch domains}
+	If we have the domain $D$ divided in $N$ patches $D_k$ with $D = \bigcup_{k=1}^{N} D_k$ with $D_i \cap D_j = \emptyset$ or $D_i \cap D_j = \Gamma_{ij}$ for $i \neq j$.
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\begin{tikzpicture}
+
+					% Define the size of the squares
+					\def\squareSize{2}
+					
+					% Draw the L-shaped domain
+					\draw[thick] (0,0) rectangle (\squareSize,\squareSize); % Bottom left square
+					\draw[thick] (0,\squareSize) rectangle (\squareSize,2*\squareSize); % Top left square
+					\draw[thick] (\squareSize, \squareSize) rectangle (2*\squareSize, 2*\squareSize); % Top right square
+					
+					% Label the patches
+					\node at (\squareSize/2,\squareSize/2) {1};
+					\node at (\squareSize/2,3*\squareSize/2) {2};
+					\node at (3*\squareSize/2,3*\squareSize/2) {3};
+					
+				\end{tikzpicture}
+			\end{center}
+		\end{column}%
+		\begin{column}{0.5\textwidth}
+			We consider the L-domain 
+			\[ D = [-1, 1]^2\setminus ([0,1]\times [-1,0]) \] 
+			divided in $N=3$ patches $ D_1, D_2, D_3 $.
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%% ======================================
+
+\begin{frame}{Multi-patch Neural Operator}
+
+\end{frame}
+
+%% ======================================
+
+\section{Numerical experiments}
+
 %% ======================================
 
 \begin{frame}{Problema di Darcy}
+	For our numerical experiments we consider the Darcy problem:
 	\[ 	\begin{cases}
 		- \nabla(a \cdot \nabla u) = f,\quad &  \mathrm{in}\ D\\
 		u = 0, & \mathrm{on} \ \partial D
 	\end{cases} \]
-	con $ D = [0, 1]^2 $, $\ \mathcal{A} = L^{\infty}(D, \R^+) $, $\ \mathcal{U} = H^1_0(D, \R) $ e $\ f \equiv 1 $.
+	with the L-domain $ D = [-1, 1]^2\setminus ((0,1)\times (-1,0)) $, diffusion coefficient $\ a \in \mathcal{A} = L^{\infty}(D, \R^+) $,  and $\ f \equiv 1 $. With this settings exists a unique solution $ u \in H^1_0(D, \R) $ and so we can define the solution operator 
 	\[  \mathcal{G}: L^{\infty}(D, \R^+) \to H^1_0(D, \R), \qquad \mathcal{G}:a \mapsto u. \]
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.4\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{zero-shot-coeff.png}
-			\caption{Coefficiente}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.4\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{zero-shot-sol.png}
-			\caption{Sol. esatta}
-		\end{subfigure}
-	\end{figure}
 \end{frame}
+
 %% ======================================
 
-\begin{frame}{Norma relativa $ L^2 $}
-	\[ \left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, L^{2})} = 	\mathbb{E}_{a \sim \mu} \frac{\left\| \mathcal{G}(a) - \mathcal{N}^{*}_{\theta}(a) \right\|^{2}_{L^2(D)}}{\left\| \mathcal{G}(a)\right\|^{2}_{L^2(D)}} \approx \]
-	\[\approx \frac1N \sum_{i=1}^{N}\left(  \frac{\sum_{k=1}^{M} \left| u^{(i)}\left( x_k\right)  - \widetilde{\mathcal{N}}^{*}_{\theta}\left(a^{(i)}\right)\left( x_k\right)  \right|^{2}}{\sum_{k=1}^{M}\left| u^{(i)}\left( x_k\right)  \right|^{2}}\right)	\]
-	con $ D_k = \left\lbrace x_{k} \right\rbrace_{k = 1}^{M} \subset D = [0, 1]$ e $ M = 85^2 $. Dataset $ \left\lbrace a^{(i)}, u^{(i)} \right \rbrace_{i=1}^{N} $ con $ a^{(i)} \sim\mu = T_{\#}N(0, C) $ i.i.d. e $ u^{(i)} = \mathcal{G}(a^{(i)}) $ soluzione approssimata e con valutazioni puntuali $ \left\lbrace a^{(i)}_{|D_k}, u^{(i)}_{|D_k} \right \rbrace_{i=1}^{N} $.
+\begin{frame}{Dataset generation}
+	\vspace{-0.5cm}
+	We have to generate the dataset $ \left\lbrace a^{(i)}, u^{(i)} \right \rbrace_{i=1}^{N} $.
+	\\ \vspace{0.5cm}
+	\pause
+	\begin{columns}
+		\begin{column}{0.7\textwidth}
+			For the input we use the push forward of a proper gaussian random fields $ a^{(i)} \sim\mu = T_{\#}N(0, C) $ i.i.d. where $C = -(\Delta + 9I)^{-2}$ and $T:\R \to \R$ such that 
+			\[ T(x) = \begin{cases}
+				12\quad & x \ge 0\\
+				3 \quad & x < 0 
+			\end{cases}. \]
+		\end{column}%
+		\begin{column}{0.3\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_input.png}
+		\end{column}
+	\end{columns}
+
+	\vspace{0.5cm}
+	\pause
+	\begin{columns}
+		\begin{column}{0.3\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_output.png}
+		\end{column}%
+		\begin{column}{0.7\textwidth}
+			For the output we approximate the solution of the Darcy problem solution $ u^{(i)} = \mathcal{G}(a^{(i)}) $ using the isogeometric geoPDEs library.
+		\end{column}
+	\end{columns}
 \end{frame}
+
 %% ======================================
 
-\begin{frame}
-	\begin{figure}[h!!]
-		\centering
-		\includegraphics[width=0.65\textwidth]{DarcyFNO_L4_train.png}
-	\end{figure}
-	Griglia $ 85 \times 85 $ con $ L=4 $, $ d_v = 32 $, $ k_{max} = 12 $, $ \sigma = ReLU $, $ 1000 $ funzioni per l'allenamento e $ 200 $ per il test, $ 500 $ epoche e learning rate inizializzato a $ 0,001 $ e dimezzato ogni $ 100 $ epoche.
-	\begin{table}[h!] %booktabs
-		\centering
-		\begin{tabular}{cccc}\toprule
-			train error & rel. error $ L^2 $ & parameters & training time \\
-			\cmidrule{1-4}
-			$ 0.01305 $ & $ 0.01804 $ & $ 2 \, 363 \, 681  $ & $ 6 $ hours\\
-			\bottomrule
-		\end{tabular}
-	\end{table}
+\begin{frame}{Relative $ L^2 $ error}
+	We define the relative $ L^2 $ error as
+	\[ \left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, L^{2})} = 	\hspace{0.2cm}\mathbb{E}_{a \sim \mu} \frac{\left\| \mathcal{G}(a) - \mathcal{N}^{*}_{\theta}(a) \right\|^{2}_{L^2(D)}}{\left\| \mathcal{G}(a)\right\|^{2}_{L^2(D)}} \]
+	that can be approximated by
+	\[\left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, L^{2})} \approx \hspace{0.2cm} \frac1N \sum_{i=1}^{N}\left(  \frac{\sum_{k=1}^{M} \left| u^{(i)}\left( x_k\right)  - \mathcal{N}^{*}_{\theta}\left(a^{(i)}\right)\left( x_k\right)  \right|^{2}}{\sum_{k=1}^{M}\left| u^{(i)}\left( x_k\right)  \right|^{2}}\right). \]
+	Where $ \left\lbrace x_{k} \right\rbrace_{k = 1}^{M} \subset D $ is the set of the discretization points. That is a uniform (or Chebyshev) grid of $42$ points per direction in every square patches.
 \end{frame}
+
 %% ======================================
 
-\begin{frame}{Norma relativa $ H^1 $}
-	\[ \left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, H^{1}_0)} = \mathbb{E}_{a \sim \mu} \frac{\left\| \mathcal{G}(a) - \mathcal{N}^{*}_{\theta}(a) \right\|^{2}_{H^1(D)}}{\left\| \mathcal{G}(a)\right\|^{2}_{H^1(D)}},  \]
-	dove \[ \left\| f \right\|_{H^1(\mathbb{T}^d)}^2 = \sum_{k \in \Z^d}	\left(1+|k|^2	\right)^s \left| \widehat{f}(k) \right|^2 \]
-	da cui
-	\[\left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L^2_{\mu}(L^{\infty}, H^{1}_0)} \approx\]\[ \approx \frac1N \sum_{i=1}^{N} \frac{\sum_{k \in \Z_{N}}	\left(1+|k|^2 \right)^s \left| \widehat{u^{(i)}}(k) - \widehat{\mathcal{N}_{\theta}^{*}\left(a^{(i)}\right)}(k)\right|^2} {\sum_{k \in \Z_{N}}\left(1+|k|^2	\right)^s \left| \widehat{u^{(i)}}(k) \right|^2}	 \]
-\end{frame}
+% \begin{frame}{Norma relativa $ H^1 $}
+% 	\[ \left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, H^{1}_0)} = \mathbb{E}_{a \sim \mu} \frac{\left\| \mathcal{G}(a) - \mathcal{N}^{*}_{\theta}(a) \right\|^{2}_{H^1(D)}}{\left\| \mathcal{G}(a)\right\|^{2}_{H^1(D)}},  \]
+% 	dove \[ \left\| f \right\|_{H^1(\mathbb{T}^d)}^2 = \sum_{k \in \Z^d}	\left(1+|k|^2	\right)^s \left| \widehat{f}(k) \right|^2 \]
+% 	da cui
+% 	\[\left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L^2_{\mu}(L^{\infty}, H^{1}_0)} \approx\]\[ \approx \frac1N \sum_{i=1}^{N} \frac{\sum_{k \in \Z_{N}}	\left(1+|k|^2 \right)^s \left| \widehat{u^{(i)}}(k) - \widehat{\mathcal{N}_{\theta}^{*}\left(a^{(i)}\right)}(k)\right|^2} {\sum_{k \in \Z_{N}}\left(1+|k|^2	\right)^s \left| \widehat{u^{(i)}}(k) \right|^2}	 \]
+% \end{frame}
+
 %% ======================================
 
-\begin{frame}{}
-	\small La norma relativa $ H^1 $ come funziona di perdita aiuta l'allenamento dell'operatore neurale.
-	\begin{table}[h!] %booktabs
-		\centering
-		\begin{tabular}{ccc}\toprule
-			funzione di perdita & errore rel. $ L^2 $ & errore rel.  $ H^1 $ \\
-			\cmidrule{1-3}
-			rel. $ L^2 $ & $ 0.01804 $ & $ 0.06944 $\\
-			rel. $ H^1 $ & $ 0.01203 $& $ 0.04793 $  \\
-			\bottomrule
-		\end{tabular}
-	\end{table}
-	{\small Nuove prestazioni con la norma relativa $ H^1 $ come funzione di perdita.}
+\begin{frame}{Fourier continuation numerical experiments}
 	\begin{table}[h!] %booktabs
 		\centering
 		\begin{tabular}{ccc}\toprule
-			funzione di perdita &  errore rel. $ L^2 $ & errore rel.  $ H^1 $ \\
-			\cmidrule{1-3}
-			rel. $ L^2 $ & $ 0.01038 $ & $ 0.05979  $ \\
-			rel. $ H^1 $ & $ \mathbf{0.007220} $ & $ \mathbf{0.03803}  $ \\
-			\bottomrule
-		\end{tabular}
-	\end{table}
-	{\small Entrambe le architetture hanno $ 2\, 376\, 449 $ parametri ed impiegano $ 7 $ ore per l'allenamento.}
-	% \cite{li2020fourier} \blfootnote{\cite{li2020fourier}, Li et al., "Fourier neural operator for parametric partial differential equations".}
-\end{frame}
-%% ======================================
-
-\section{Multi-patch domains}
-%% ======================================
-
-\begin{frame}{Problema di Darcy su un dominio ad L}
-	\[ 	\begin{cases}
-		- \nabla(a \cdot \nabla u) = f,\quad &  \mathrm{in}\ \Omega\\
-		u = 0, & \mathrm{in} \ \partial\Omega
-	\end{cases} \]
-	problema di Darcy su $ \Omega = [-1,1]^2\setminus(0,1)\times (-1,0) $, $ f \equiv 1 $.
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.36\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{CoefficientiL.png}
-			\caption{Coefficiente}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{SoluzioneL.png}
-			\caption{Sol. esatta}
-		\end{subfigure}
-	\end{figure}
-\end{frame}
-%% ======================================
-
-\begin{frame}{Fourier continuation}
-	Gli operatori neurali di Fourier hanno la limitazione che sono ristretti a domini rettangolari. Quando ho un dominio irregolare posso estenderlo a un dominio rettangolare più grande, la funzione di perdita calcolata solo sul dominio originale.
-	\begin{table}[h!] %booktabs
-		\centering
-		\begin{tabular}{ccc}\toprule
-		errore rel. $ L^2 $ & parametri & tempo allenamento \\
+		rel. error $ L^2 $ & parameters & training times\\
 			\cmidrule{1-3}
 			$ 0.02450 $ & $ 2\, 363\, 681 $ & $ 7 $ hours\\
 			\bottomrule
 		\end{tabular}
 	\end{table}
-	\begin{figure}
-		\centering
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[width=0.8\textwidth]{SoluzioneContinuationL.png}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.45\textwidth}
-			\centering
-			\includegraphics[width=0.8\textwidth]{DifferenzaContinuationL.png}
-		\end{subfigure}
-	\end{figure}
+	\begin{center}
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_input.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_output.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_appro.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{FNO_continuation_error.png}
+        \end{minipage}
+    \end{center}
 \end{frame}
+
+%% ======================================
+
+\begin{frame}{Multi-patch neural operator numerical experiments}
+	\begin{table}[h!] %booktabs
+		\centering
+		\begin{tabular}{ccc}\toprule
+		rel. error $ L^2 $ & parameters & training times\\
+			\cmidrule{1-3}
+			$ 0.02450 $ & $ 2\, 363\, 681 $ & $ 7 $ hours\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\begin{center}
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{MPNO_input.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{MPNO_output.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{MPNO_appro.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.24\textwidth}
+            \includegraphics[width=\textwidth]{MPNO_error.png}
+        \end{minipage}
+    \end{center}
+\end{frame}
+
 %% ======================================
 
 % \begin{frame}[noframenumbering]{Bibliografia}
@@ -396,17 +446,34 @@
 %% ======================================
 \backmatter % last slide
 
+%% ======================================
+
 \appendix
+\begin{frame}[noframenumbering]{Universal approximation for $\psi$-FNOs}
+	% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
+	\begin{themedTitleBlock}{Teorema} % \cite{kovachki2021universal}
+		Given $ s > d/2 $, $ \lambda \in (0,1) $ and we consider the solution operator for the Darcy problem 
+		\[ \mathcal{G}: \mathcal{A}_{\lambda}^{s}(\mathbb{T}^d) \to H^1(\mathbb{T}^d). \]
+		Given $ \sigma \in C^3(\R) $ non-polynomial, for any $ N \in \N $ exists $ C > 0 $ and a $ \psi $-FNO
+		\[ \mathcal{N}^{*}: \mathcal{A}_{\lambda}^{s}(\mathbb{T}^d) \to H^1(\mathbb{T}^d)  \]
+		such that	
+		\[ \underset{a \in \mathcal{A}_{\lambda}^{s}}{sup} \left\| \mathcal{G}(a) - \mathcal{N}^{*}(a) \right\|_{H^1(\mathbb{T}^d)} \le CN^{-k} \]
+		and $\ \mathrm{depth}(\mathcal{N}^{*}) \le C \log(N) $, $\  \mathrm{lift}(\mathcal{N}^{*}) \le C $, $\ \mathrm{size}(\mathcal{N}^{*}) \lesssim N^d\log(N). $
+	\end{themedTitleBlock}
+\end{frame}
+
+%% ======================================
+
 \begin{frame}[noframenumbering]{Trasformata di Fourier}
 	\centering
 	\begin{itemize}
-		\item  Sia $ v \in  L^2(\mathbb{T}^d) $, la trasformata di Fourier è
+		\item  Given $ v \in  L^2(\mathbb{T}^d) $, the Fourier transform is defined as 
 		\[ \begin{split}
 			\mathcal{F} : \ & L^{2}(\mathbb{T}^d, \C^{n})\to \ell^{2}(\Z^d, \C^{n})\\
 			& v \mapsto \mathcal{F}(v)
 		\end{split} \]
 		\[ \mathcal{F}(v)(k) := \frac{1}{(2 \pi)^{d}} \int_{\mathbb{T}^{d}}v(x) e^{-i \left\langle k , x \right\rangle} \ dx,  \quad \forall k \in \Z^d. \]
-		\item Data $ \widehat{v} = \left\lbrace \widehat{v}_k\right\rbrace_{k \in \Z^d} \in \ell^{2}(\Z^d, \C^{n}) $, la trasformata inversa di Fourier è
+		\item Given $ \widehat{v} = \left\lbrace \widehat{v}_k\right\rbrace_{k \in \Z^d} \in \ell^{2}(\Z^d, \C^{n}) $, the anti-Fourier transform is defined as 
 		\[ \begin{split}
 			\mathcal{F}^{-1} : \ & \ell^{2}(\Z^d, \C^{n}) \to L^{2}(D, \C^{n})\\
 			& \widehat{v} \mapsto \mathcal{F}^{-1}(\widehat{v})
@@ -415,6 +482,8 @@
 	\end{itemize}
 \end{frame}
 
+%% ======================================
+
 \begin{frame}[noframenumbering]{Trasformata discreta di Fourier}
 	Sia $ N \in \N $ e fissata una griglia regolare $ \{x_j\}_{j \in \mathcal{I}_N} $ con $ x_j = (2\pi j)/(2N+1) \in \mathbb{T}^d $, $ j \in \mathcal{I}_N = \{0, \dots, 2N\}^{d} $ e scelto un insieme per i modi di Fourier $\mathcal{K}_N := \{k \in \Z^d : |k|_{\infty} \le N\}$.
 	Definiamo la trasformata discreta di Fourier come
@@ -422,6 +491,8 @@
 	e la trasformata inversa discreta di Fourier come
 	\[ \mathcal{F}_{N}^{-1}: \C^{\mathcal{K}_N} \to \R^{\mathcal{I}_N}\]\[ \mathcal{F}_{N}^{-1}(\widehat{v})(j) := \sum_{k \in \mathcal{K}_N} \widehat{v}_k e^{2\pi i \left\langle j, k \right\rangle/N }, \qquad \forall j \in \mathcal{J}_N. \]
 \end{frame}
+
+%% ======================================
 
 \begin{frame}[noframenumbering]{Schema dimostrazione teo. universale FNO}
 	\centering
@@ -436,6 +507,8 @@
 	\end{itemize}
 \end{frame}
 
+%% ======================================
+
 \begin{frame}[noframenumbering]{Schema dimostrazione teo. universale FNO}
 	Definiamo l'operatore
 	\[ \widehat{\mathcal{G}}_N: \C^{\mathcal{K}_N} \to\C^{\mathcal{K}_N}, \qquad \widehat{\mathcal{G}}_N(\widehat{a}_k) := \mathcal{F}_N (\mathcal{G}_N ( Re (\mathcal{F}_N^{-1}(\widehat{a}_k)))), \]
@@ -445,6 +518,8 @@
 	\[ \mathcal{F}_N^{-1}, \ \widehat{\mathcal{G}}_N , \ \mathcal{F}_N (P_Na). \]
 \end{frame}
 
+%% ======================================
+
 \begin{frame}[noframenumbering]{Definizione MLP}
 	Let $ d \in \N $ and $ L\in \N $ with $ L \ge 2 $ and $ \sigma : \R \to \R  $ an activation function. Let $ A_{\ell} \in \R^{n_{\ell}\times n_{\ell-1}} $, $ b_{\ell} \ in \R^{\ell} $ with $ n_{\ell}\in \N $ for $ \ell = 1, \dots, L $	and $ n_{0} = d $. We call multilayer perceptron (MLP) the function defined as
 	\[ \begin{cases}
@@ -453,6 +528,8 @@
 	\end{cases}, \]
 	where $ x_0 $ is the input and $ x_{L} $ is the output of the function.
 \end{frame}
+
+%% ======================================
 
 \begin{frame}[noframenumbering]{Universal approximation theorem for operator}
 	Suppose that $ \sigma \in TW $, $ X $ is a Banach space, $ K_1 \subset X $, $ K_2 \subset \R^d $ are two compact sets in $ X $ and $ \R^{d} $ respectively, and $ V $ is a compact set in $ C(K_1) $. Let $ G $ a nonlinear continuous operator which maps $ V $ into $ C(K_2) $, then for any $ \varepsilon > 0 $, there are a positive integers $ n $, $ p $, $ m $; real constants $ c_i^{k}$, $ \theta_i^{k}$, $ \xi_{ij}^{k} $, $ \zeta^k \in \R $, points $ w^{k} \in \R^d $ and $ x_j \in K_1 $, with $ i = 1, \dots, n$, $ j = 1, \dots, m $ and $ k = 1, \dots, p $, such that

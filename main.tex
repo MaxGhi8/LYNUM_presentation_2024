@@ -326,30 +326,28 @@
 %% ======================================
 
 \begin{frame}{Dataset generation}
-	\vspace{-0.5cm}
 	We have to generate the dataset $ \left\lbrace a^{(i)}, u^{(i)} \right \rbrace_{i=1}^{N} $.
-	\\ \vspace{0.5cm}
+	\\ \vspace{0.3cm}
 	\pause
 	\begin{columns}
-		\begin{column}{0.7\textwidth}
-			For the input we use the push forward of a proper gaussian random fields $ a^{(i)} \sim\mu = T_{\#}N(0, C) $ i.i.d. where $C = -(\Delta + 9I)^{-2}$ and $T:\R \to \R$ such that 
-			\[ T(x) = \begin{cases}
-				12\quad & x \ge 0\\
-				3 \quad & x < 0 
-			\end{cases}. \]
+		\begin{column}{0.8\textwidth}
+			For the input we use the push forward of a proper gaussian random fields $ a^{(i)} \sim\mu = T_{\#}N(0, C) $ i.i.d. where $C = -(\Delta + 9I)^{-2}$ and $T:\R \to \R$ such that $T$ gives $12$ to the positive values and $3$ to the negative ones. 
+			% \[ T(x) = \begin{cases}
+			% 	12\quad & x \ge 0\\
+			% 	3 \quad & x < 0 
+			% \end{cases}. \]
 		\end{column}%
-		\begin{column}{0.3\textwidth}
+		\begin{column}{0.2\textwidth}
             \includegraphics[width=\textwidth]{FNO_continuation_input.png}
 		\end{column}
 	\end{columns}
-
-	\vspace{0.5cm}
+	\vspace{0.3cm}
 	\pause
 	\begin{columns}
-		\begin{column}{0.3\textwidth}
+		\begin{column}{0.2\textwidth}
             \includegraphics[width=\textwidth]{FNO_continuation_output.png}
 		\end{column}%
-		\begin{column}{0.7\textwidth}
+		\begin{column}{0.8\textwidth}
 			For the output we approximate the solution of the Darcy problem solution $ u^{(i)} = \mathcal{G}(a^{(i)}) $ using the isogeometric geoPDEs library.
 		\end{column}
 	\end{columns}
@@ -388,7 +386,7 @@
 	\end{table}
 	\begin{center}
         \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_input.png}
+            \includegraphics[width=0.93\textwidth]{FNO_continuation_input.png}
         \end{minipage}
         \hfill
         \begin{minipage}{0.24\textwidth}

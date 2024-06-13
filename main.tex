@@ -484,25 +484,25 @@
 
 %% ======================================
 
-\begin{frame}[noframenumbering]{Trasformata discreta di Fourier}
-	Sia $ N \in \N $ e fissata una griglia regolare $ \{x_j\}_{j \in \mathcal{I}_N} $ con $ x_j = (2\pi j)/(2N+1) \in \mathbb{T}^d $, $ j \in \mathcal{I}_N = \{0, \dots, 2N\}^{d} $ e scelto un insieme per i modi di Fourier $\mathcal{K}_N := \{k \in \Z^d : |k|_{\infty} \le N\}$.
-	Definiamo la trasformata discreta di Fourier come
+\begin{frame}[noframenumbering]{Discrete Fourier transform and anti-transform}
+	We choose $ N \in \N $ and fix an uniform grid $ \{x_j\}_{j \in \mathcal{I}_N} $ with $ x_j = (2\pi j)/(2N+1) \in \mathbb{T}^d $, $ j \in \mathcal{I}_N = \{0, \dots, 2N\}^{d} $, finally we define $\mathcal{K}_N := \{k \in \Z^d : |k|_{\infty} \le N\}$.
+	We define the discrete Fourier transform as
 	\[ \mathcal{F}_{N}: \R^{\mathcal{I}_N} \to \C^{\mathcal{K}_N}\]\[ \mathcal{F}_{N}(v)(k) := \frac{1}{(2N+1)^{d}} \sum_{j \in \mathcal{I}_N}v(x_j) e^{-2\pi i \left\langle j, k \right\rangle/N }, \quad \forall k \in \mathcal{K}_N, \]
-	e la trasformata inversa discreta di Fourier come
+	and we define the discret version of the anti-Fourier transform as
 	\[ \mathcal{F}_{N}^{-1}: \C^{\mathcal{K}_N} \to \R^{\mathcal{I}_N}\]\[ \mathcal{F}_{N}^{-1}(\widehat{v})(j) := \sum_{k \in \mathcal{K}_N} \widehat{v}_k e^{2\pi i \left\langle j, k \right\rangle/N }, \qquad \forall j \in \mathcal{J}_N. \]
 \end{frame}
 
 %% ======================================
 
-\begin{frame}[noframenumbering]{Schema dimostrazione teo. universale FNO}
+\begin{frame}[noframenumbering]{Sketch of the proof of universal approximation theorem for FNOs}
 	\centering
 	\begin{itemize}
-		\item Proiezione sullo spazio dei polinomi trigonometrici
+		\item The definition of the projection on the trigonometric polynomial is
 		\[ P_N: L^{2}(\mathbb{T}^d) \to L^{2}_N(\mathbb{T}^d),  \]
 		\[ P_N\left(\sum_{k \in \Z^d} c_k e^{i \left\langle x, k \right\rangle } \right) = \sum_{|k|_{\infty}\le N} c_k e^{i \left\langle x, k \right\rangle }, \qquad \forall (c_k)_{k \in \Z^d} \in \ell^2(\Z^d). \]
-		\item Se il teorema universale vale per $ s'=0 $ allora vale per per qualsiasi valore di $ s' \ge 0 $.
-		\item Fissiamo $ s' = 0 $  \[ \mathcal{G}_{N}: H^{s}(\mathbb{T}^d, \R^{d_a}) \to L^2(\mathbb{T}^d, \R^{d_u}), \qquad \mathcal{G}_{N}(a):= P_N  \mathcal{G} (P_Na), \]
-		vale che $ \forall \varepsilon > 0 $, $ \exists N \in \N $ si ha
+		\item If the universal approximation theorem holds for $ s'=0 $ then it holds for any value of $ s' \ge 0 $.
+		\item We fix $ s' = 0 $  \[ \mathcal{G}_{N}: H^{s}(\mathbb{T}^d, \R^{d_a}) \to L^2(\mathbb{T}^d, \R^{d_u}), \qquad \mathcal{G}_{N}(a):= P_N  \mathcal{G} (P_Na), \]
+		holds that $ \forall \varepsilon > 0 $, $ \exists N \in \N $ such that
 		\[ \left\|\mathcal{G}(a) - \mathcal{G}_N(a) \right\|_{L^2} \le \varepsilon, \qquad \forall a \in K. \]
 	\end{itemize}
 \end{frame}
@@ -521,7 +521,7 @@
 %% ======================================
 
 \begin{frame}[noframenumbering]{Definizione MLP}
-	Let $ d \in \N $ and $ L\in \N $ with $ L \ge 2 $ and $ \sigma : \R \to \R  $ an activation function. Let $ A_{\ell} \in \R^{n_{\ell}\times n_{\ell-1}} $, $ b_{\ell} \ in \R^{\ell} $ with $ n_{\ell}\in \N $ for $ \ell = 1, \dots, L $	and $ n_{0} = d $. We call multilayer perceptron (MLP) the function defined as
+	Let $ d \in \N $ and $ L\in \N $ with $ L \ge 2 $ and $ \sigma : \R \to \R  $ a non-linear activation function. Let $ A_{\ell} \in \R^{n_{\ell}\times n_{\ell-1}} $, $ b_{\ell} \in \R^{\ell} $ with $ n_{\ell}\in \N $ for $ \ell = 1, \dots, L $	and $ n_{0} = d $. We call multilayer perceptron (MLP) the function defined as
 	\[ \begin{cases}
 		x_{L} = A_{L}x_{L-1} + b_{L} \qquad & \\
 		x_{\ell} = \sigma\left( A_{\ell}x_{\ell-1} + b_{\ell} \right) 

@@ -4,6 +4,8 @@
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{hyperref}
 \usepackage{subcaption}
+\usepackage{multimedia}
+
 \graphicspath{{figures/}}
 \usetikzlibrary{positioning, arrows.meta, fit, shapes.geometric, calc}
 
@@ -15,7 +17,7 @@
 \visibilitySiegel{0}
 
 % title and subtitle
-\title{Operator learning \newline for multi-patch domains}
+\title{Operator learning  \newline  for multi-patch domains}
 \subtitle{}
 
 % For multiple authors/presenters :
@@ -25,15 +27,15 @@
 %      b- For different institutes, comment the line \AuthorInstitute{...} and use
 %         \inst{...} together with \institute{...}
 \singleAuthor{Massimiliano Ghiotto}
-\AuthorInstitute{PhD student at University of Pavia}
+\AuthorInstitute{Departement of Mathematics, University of Pavia}
 %\multAuthors{Antoine Gansel\inst{1} \and Jullie Cailler\inst{2}}
 
 %% collaborators with institute
 % \Collaborators{{Julie Cailler\inst{2}}} 
-% \Supervisors{Carlo Marcati\inst{1} \and {Giancarlo Sangalli\inst{1}}}
-% \institute{{\inst{1}University of Pavia}}
+\Supervisors{Carlo Marcati\inst{1} \and {Giancarlo Sangalli\inst{1}}}
+\institute{{\inst{1}Departement of Mathematics, \newline University of Pavia}}
 %% collaborators without institute
-\Supervisors{Carlo Marcati, \and Giancarlo Sangalli} % \institute{{\inst{1}University of Pavia}}
+% \Supervisors{Carlo Marcati, \and Giancarlo Sangalli} % \institute{{\inst{1}University of Pavia}}
 
 \newcommand{\numberset}{\mathbb}
 \newcommand{\N}{\numberset{N}}
@@ -52,7 +54,7 @@
 
 %% ======================================
 
-\section{Operator Learning}
+\section{Fourier Neural Operator}
 
 %% ======================================
 
@@ -63,34 +65,34 @@
 	\vspace{-0.2cm}
 	\begin{enumerate}
 		\item \textbf{Lifting:} linear and local operator 
-			\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = P\cdot a(x), \ P \in \R^{d_{v} \times d_a} \]
+		\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = W_{\mathcal{P}}\cdot a(x) + b_{\mathcal{P}}, \ W_{\mathcal{P}} \in \R^{d_{v} \times d_a}, b_{\mathcal{P}} \in \R^{d_v}\]
 	\vspace{-0.2cm}
 		\pause
 		\item \textbf{Integral operator:} for $ t = 1, \dots, L $
 		\[ \mathcal{L}_t : \, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{v}}) \]
-		\[  \mathcal{L}_t(v)(x) := \sigma\Big( W_t v(x)+ b_t(x) + (\mathcal{K}_t(a, \theta) v)(x) \Big) \]
+		\[  \mathcal{L}_t(v)(x) := \sigma\Big( W_t v(x)+ b_t + (\mathcal{K}_t(a, \theta) v)(x) \Big) \]
 		with $ \mathcal{K}_t(a, \theta) $ linear and non-local operator.  
 		\pause
 		\item \textbf{Projection:} linear and local operator 
-		\[\mathcal{Q}:\, \mathcal{U}(D_{L}, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = Q\cdot v(x), \ Q \in \R^{d_{v_u} \times d_{v}}. \]		
+		\[\mathcal{Q}:\, \mathcal{U}(D_{L}, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = W_{\mathcal{Q}} + b_{\mathcal{Q}}\cdot v(x), \ W_{\mathcal{Q}} \in \R^{d_{v_u} \times d_{v}}, \ b_{\mathcal{Q}}\in \R^{d_u}. \]		
 	\end{enumerate}
 \end{frame}
 
 %% ======================================
 
-\begin{frame}{Integral operator}
-	There are different ways to define the integral operator $ \mathcal{K}_t $:
-	\begin{itemize}
-		\item defining $ \kappa_{t,\theta} \in C(D\times D,\, \R^{d_{v}\times d_{v}}) $
-		\[ (\mathcal{K}_t(a, \theta)v)(x) = (\mathcal{K}_t(\theta)v)(x) = \int_{D} \kappa_{t,\theta}(x, y) v(y) \ d\mu_t(y).\]
-		\pause
-		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_a} \times \R^{d_a},\, \R^{d_{v}\times d_{v}}) $
-		\[	(\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t, \theta}\left( x, y, a\left(x\right), a\left(y\right) \right)v(y)  \ d\mu_t(y).\]
-		\pause
-		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_{v}} \times \R^{d_{v}},\, \R^{d_{v}\times d_{v}}) $
-		\[ (\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t,\theta}\left( x, y, v\left(x\right), v(y) \right) v(y)  \ d\mu_t(y). \]
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Integral operator}
+% 	There are different ways to define the integral operator $ \mathcal{K}_t $:
+% 	\begin{itemize}
+% 		\item defining $ \kappa_{t,\theta} \in C(D\times D,\, \R^{d_{v}\times d_{v}}) $
+% 		\[ (\mathcal{K}_t(a, \theta)v)(x) = (\mathcal{K}_t(\theta)v)(x) = \int_{D} \kappa_{t,\theta}(x, y) v(y) \ d\mu_t(y).\]
+% 		\pause
+% 		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_a} \times \R^{d_a},\, \R^{d_{v}\times d_{v}}) $
+% 		\[	(\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t, \theta}\left( x, y, a\left(x\right), a\left(y\right) \right)v(y)  \ d\mu_t(y).\]
+% 		\pause
+% 		\item defining $ \kappa_{t,\theta} \in C(D\times D\times \R^{d_{v}} \times \R^{d_{v}},\, \R^{d_{v}\times d_{v}}) $
+% 		\[ (\mathcal{K}_t(a, \theta)v)(x) = \int_{D} \kappa_{t,\theta}\left( x, y, v\left(x\right), v(y) \right) v(y)  \ d\mu_t(y). \]
+% 	\end{itemize}
+% \end{frame}
 
 %% ======================================
 
@@ -108,22 +110,20 @@
 % \end{frame}
 
 %% ======================================
-\section{Fourier Neural Operator}
-%% ======================================
 
 \begin{frame}{Definition of Fourier Neural Operator}
-	For defining the Fourier Neural Operator (FNO) we make the first assumption and the further assumption that $\kappa_{t,\theta_t}(x, y) = \kappa_{t,\theta_t}(x -y)$,
-	\[ (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x-y) v(y) \ dy = (\kappa_{t, \theta_t} * v)(x)  .\]
+	For defining the Fourier Neural Operator (FNO) we make the following assumptions
+	\[ (\mathcal{K}_t(\theta_t, a)v)(x) = (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x,y) v(y) \ dy = (\kappa_{t, \theta_t} * v)(x)  .\]
 	\pause
 	Using the convolution theorem we have
 	\[ (\kappa_{t, \theta_t} * v)(x) =  \mathcal{F}^{-1}\left( \mathcal{F}( \kappa_{t,\theta_t}) (k) \cdot \mathcal{F}(v)(k) \right)(x), \]
-	and parameterizing $\mathcal{F}( \kappa_{t, \theta_t} )$ with the parameters $R_{\theta_t}(k) \in \C^{d_v \times d_v} \ \forall k \in \Z^d $, we have 
-	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{F}^{-1}\left( R_{\theta_t}(k) \cdot \mathcal{F}(v)(k) \right)(x) \]
+	and parameterizing $\mathcal{F}( \kappa_{t, \theta_t} )$ with the parameters $R_{\theta, t}(k) \in \C^{d_v \times d_v} \ \forall k \in \Z^d $, we have 
+	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{F}^{-1}\left( R_{\theta,t}(k) \cdot \mathcal{F}(v)(k) \right)(x) \]
 \end{frame}
 
 %% ======================================
 
-\begin{frame}{Universal approximation for FNOs}% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
+\begin{frame}{Universal approximation for FNOs \footnote{N. Kovachki, S. Lanthaler, S. Mishra, "On universal approximation and error bounds for fourier neural operators"}}
 \begin{themedTitleBlock}{Universal approximation theorem} % \cite{kovachki2021universal}
 	Given $ s, s' \ge 0 $ and 
 	\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
@@ -151,8 +151,7 @@
 
 %% ======================================
 
-\begin{frame}{Universal approximation for $\psi$-FNOs}
-	% \blfootnote{\cite{kovachki2021universal}, Kovachki et al., "On universal approximation and error bounds for fourier neural operators".}
+\begin{frame}{Universal approximation for $\psi$-FNOs\footnote{N. Kovachki, S. Lanthaler, S. Mishra, "On universal approximation and error bounds for fourier neural operators"}}
 	\begin{themedTitleBlock}{Universal approximation for $\psi$-FNOs} %\cite{kovachki2021universal}
 		Given $ s > d/2$ , $ s' \ge 0 $ and 
 		\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
@@ -167,7 +166,7 @@
 
 \begin{frame}{Representation of $\psi$-FNO}
     \begin{center}
-    \begin{tikzpicture}
+		\movie[externalviewer]{\begin{tikzpicture}
         \tikzset{
             box/.style={draw, rounded corners, align=center, minimum height=0.8cm, minimum width=1cm, fill=orange!30},
             bigbox/.style={draw, rounded corners, align=center, minimum height=2cm, minimum width=1cm, fill=yellow!30},
@@ -230,7 +229,7 @@
         % Connection between the two parts
         \draw[] ($(internal.north west)+(0.1, 0.05)$) -- (fourier2.south west);
         \draw[] ($(internal.north east)+(-0.1, 0.05)$) -- (fourier2.south east);
-    \end{tikzpicture}
+    \end{tikzpicture}}{FNO_architecture.mp4}
     \end{center}
 \end{frame}
 
@@ -262,7 +261,7 @@
 	\[ \mathcal{N}_{\theta}: \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_u}), \]
 	defined by
 	\[ \mathcal{N}_{\theta}(a) = \mathcal{Q} \circ \mathcal{L}_L \circ \cdots \circ \mathcal{L}_1 \circ \mathcal{P}(a), \]
-	where is all defined as the FNO but in the integral operator we use the Chebyshev transfor and anti-transform instead of the Fourier transform, i.e.
+	where is all defined as the FNO but in the integral operator we use the Chebyshev transform and anti-transform instead of the Fourier transform, i.e.
 	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{C}^{-1}\left( R_{\theta_t}(k) \cdot \mathcal{C}(v)(k) \right)(x), \quad R_{\theta_t}(k) \in \R^{d_v \times d_v} \ \forall k \in \N^d. \]
 	\pause 
 	At the discrete level, we can define the Pseudo Spectral Chebyshev Neural Operator ($\psi$-CNO) as before, with the difference that the grid $ \mathcal{I}_N $ is defined on a Chebyshev grid and not on an uniform one.
@@ -270,15 +269,27 @@
 
 %% ======================================
 
+\begin{frame}{Boundary adapted Chebyshev basis}
+	The one dimensional Chebyshev polynomials are defined on the interval $ [-1, 1] $, as $T_n(\cos(\theta)) = \cos(n\theta)$, $n \in \N$ with the property that $T_n(1) = 1$ and $T_n(-1) = (-1)^n$. We define the boundary adapted Chebyshev basis as $B_0(x) = \frac12(-x+1)$, $B_1(x) = \frac12(x+1)$ and for $n \ge 2$
+	\[ B_n(x) = \begin{cases}
+		T_n(x) - T_0(x) \quad & n \text{ is even},\\
+		T_n(x) - T_1(x) \quad & n \text{ is odd}.
+	\end{cases} \]	
+	\pause
+	For two dimensional Chebyshev polynomials we define $B_{n_1, n_2}(x, y) = B_{n_1}(x)B_{n_2}(y), \ 0 \le n_1, n_2 \le n$. Considering the square domain $D = [-1, 1]^2$ we notice that there is only a function not equal to zero in each vertex of the square and there are only $n$ functions that are not zero on each edge, $B_{i,j}(x,y) \ 2\le i,j \le n$ are zero on the boundary.
+\end{frame}
+
+%% ======================================
+
 \begin{frame}{Multi-patch domains}
 	If we have the domain $D$ divided in $N$ patches $D_k$ with $D = \bigcup_{k=1}^{N} D_k$ with $D_i \cap D_j = \emptyset$ or $D_i \cap D_j = \Gamma_{ij}$ for $i \neq j$.
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.3\textwidth}
 			\begin{center}
 				\begin{tikzpicture}
 
 					% Define the size of the squares
-					\def\squareSize{2}
+					\def\squareSize{1.5}
 					
 					% Draw the L-shaped domain
 					\draw[thick] (0,0) rectangle (\squareSize,\squareSize); % Bottom left square
@@ -293,10 +304,17 @@
 				\end{tikzpicture}
 			\end{center}
 		\end{column}%
-		\begin{column}{0.5\textwidth}
+		\begin{column}{0.7\textwidth}
 			We consider the L-domain 
 			\[ D = [-1, 1]^2\setminus ([0,1]\times [-1,0]) \] 
 			divided in $N=3$ patches $ D_1, D_2, D_3 $.
+			% \[
+			% 	D_1 = [-1,0]^2,\
+			% 	D_2 = [-1,0]\times [0,1],\
+			% 	D_3 = [0,1]^2.
+			% \]
+			We define the boundary adapted Chebyshev basis on each patch $D_k$ and denotes with $B_{i,j}^{k}$ with $k=1,2,3$ and $0 \le i,j \le n$. To ensure the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$ we have to impose that
+			\[ b^{0}_{i, 1} = b^{1}_{i,0}, \quad b^{2}_{0,i} = b^{1}_{1, i}, \quad \forall i = 1, \dots n\]
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -304,6 +322,15 @@
 %% ======================================
 
 \begin{frame}{Multi-patch Neural Operator}
+The multi-patch neural operator is defined as the Chebyshev neural operator on each patch $D_k$ and the continuity on the interface is imposed using the boundary adapted Chebyshev basis in the following way:
+\begin{itemize}
+	\item compute the Chebyshev discrete transform of the function $v$ on each patch $D_k$,
+	\item moltiply with the parameters $R_{\theta,t}$,
+	\item compute the boundary adapted Chebyshev coefficients on each patch,
+	\item impose the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$,
+	\item go back to the Chebyshev coefficients on each patch,
+	\item compute the Chebyshev inverse transform on each patch.
+\end{itemize}
 
 \end{frame}
 
@@ -360,7 +387,7 @@
 	\[ \left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, L^{2})} = 	\hspace{0.2cm}\mathbb{E}_{a \sim \mu} \frac{\left\| \mathcal{G}(a) - \mathcal{N}^{*}_{\theta}(a) \right\|^{2}_{L^2(D)}}{\left\| \mathcal{G}(a)\right\|^{2}_{L^2(D)}} \]
 	that can be approximated by
 	\[\left\| \frac{\mathcal{G} - \mathcal{N}^{*}_{\theta}}{\mathcal{G}}\right\|_{L_{\mu}^2(L^{\infty}, L^{2})} \approx \hspace{0.2cm} \frac1N \sum_{i=1}^{N}\left(  \frac{\sum_{k=1}^{M} \left| u^{(i)}\left( x_k\right)  - \mathcal{N}^{*}_{\theta}\left(a^{(i)}\right)\left( x_k\right)  \right|^{2}}{\sum_{k=1}^{M}\left| u^{(i)}\left( x_k\right)  \right|^{2}}\right). \]
-	Where $ \left\lbrace x_{k} \right\rbrace_{k = 1}^{M} \subset D $ is the set of the discretization points. That is a uniform (or Chebyshev) grid of $42$ points per direction in every square patches.
+	Where $ \left\lbrace x_{k} \right\rbrace_{k = 1}^{M} \subset D $ is the set of the discretization points. That is a uniform (or Chebyshev) grid of $42$ points per direction in every square patches. 
 \end{frame}
 
 %% ======================================
@@ -375,15 +402,6 @@
 %% ======================================
 
 \begin{frame}{Fourier continuation numerical experiments}
-	\begin{table}[h!] %booktabs
-		\centering
-		\begin{tabular}{ccc}\toprule
-		rel. error $ L^2 $ & parameters & training times\\
-			\cmidrule{1-3}
-			$ 0.02450 $ & $ 2\, 363\, 681 $ & $ 7 $ hours\\
-			\bottomrule
-		\end{tabular}
-	\end{table}
 	\begin{center}
         \begin{minipage}{0.24\textwidth}
             \includegraphics[width=0.93\textwidth]{FNO_continuation_input.png}
@@ -401,20 +419,20 @@
             \includegraphics[width=\textwidth]{FNO_continuation_error.png}
         \end{minipage}
     \end{center}
+	\begin{table}[h!] %booktabs
+		\centering
+		\begin{tabular}{cccc}\toprule
+		rel. train error $ L^2 $ & rel. test error $L^2$ & parameters & epochs \\
+			\cmidrule{1-4}
+			$ 0.0282 $ & $0.0229$ & $ 2\, 363\, 681 $ & $500$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
 \end{frame}
 
 %% ======================================
 
 \begin{frame}{Multi-patch neural operator numerical experiments}
-	\begin{table}[h!] %booktabs
-		\centering
-		\begin{tabular}{ccc}\toprule
-		rel. error $ L^2 $ & parameters & training times\\
-			\cmidrule{1-3}
-			$ 0.02450 $ & $ 2\, 363\, 681 $ & $ 7 $ hours\\
-			\bottomrule
-		\end{tabular}
-	\end{table}
 	\begin{center}
         \begin{minipage}{0.24\textwidth}
             \includegraphics[width=\textwidth]{MPNO_input.png}
@@ -432,14 +450,33 @@
             \includegraphics[width=\textwidth]{MPNO_error.png}
         \end{minipage}
     \end{center}
+	\begin{table}[h!] %booktabs
+		\centering
+		\begin{tabular}{cccc}\toprule
+		rel. train error $ L^2 $ & rel. test error $L^2$ & parameters & epochs \\
+			\cmidrule{1-4}
+			$ 0.0115 $ & $0.0212$ & $ 2\, 372\, 233 $ & $500$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
 \end{frame}
 
 %% ======================================
 
-% \begin{frame}[noframenumbering]{Bibliografia}
-% 	\nocite{*}
-% 	\printbibliography
-% \end{frame}
+\begin{frame}{Conclusions and future works}
+	Achievements:
+	\begin{itemize}
+		\item We have constructed a multi-patch neural operator for the Darcy problem on the L-domain.
+		\item The neural operator is easily parallelizable between the patches.
+	\end{itemize}
+	\pause
+	Future works:
+	\begin{itemize}
+		\item Analyze if an universal approximation result can be obtained for the multi-patch neural operator.
+		\item Use the multi-patch neural operator to approximate the solution of different PDEs.
+		\item Extend the multi-patch neural operator to more complex geometries, with patches that are isomorphic to the square.
+	\end{itemize}
+\end{frame}
 
 %% ======================================
 \backmatter % last slide
@@ -486,7 +523,7 @@
 	We choose $ N \in \N $ and fix an uniform grid $ \{x_j\}_{j \in \mathcal{I}_N} $ with $ x_j = (2\pi j)/(2N+1) \in \mathbb{T}^d $, $ j \in \mathcal{I}_N = \{0, \dots, 2N\}^{d} $, finally we define $\mathcal{K}_N := \{k \in \Z^d : |k|_{\infty} \le N\}$.
 	We define the discrete Fourier transform as
 	\[ \mathcal{F}_{N}: \R^{\mathcal{I}_N} \to \C^{\mathcal{K}_N}\]\[ \mathcal{F}_{N}(v)(k) := \frac{1}{(2N+1)^{d}} \sum_{j \in \mathcal{I}_N}v(x_j) e^{-2\pi i \left\langle j, k \right\rangle/N }, \quad \forall k \in \mathcal{K}_N, \]
-	and we define the discret version of the anti-Fourier transform as
+	and we define the discrete version of the anti-Fourier transform as
 	\[ \mathcal{F}_{N}^{-1}: \C^{\mathcal{K}_N} \to \R^{\mathcal{I}_N}\]\[ \mathcal{F}_{N}^{-1}(\widehat{v})(j) := \sum_{k \in \mathcal{K}_N} \widehat{v}_k e^{2\pi i \left\langle j, k \right\rangle/N }, \qquad \forall j \in \mathcal{J}_N. \]
 \end{frame}
 
@@ -507,18 +544,17 @@
 
 %% ======================================
 
-\begin{frame}[noframenumbering]{Schema dimostrazione teo. universale FNO}
-	Definiamo l'operatore
+\begin{frame}[noframenumbering]{Sketch of the proof of universal approximation theorem for FNOs}
+	Define the operator
 	\[ \widehat{\mathcal{G}}_N: \C^{\mathcal{K}_N} \to\C^{\mathcal{K}_N}, \qquad \widehat{\mathcal{G}}_N(\widehat{a}_k) := \mathcal{F}_N (\mathcal{G}_N ( Re (\mathcal{F}_N^{-1}(\widehat{a}_k)))), \]
-	per il quale vale l'identità
+	holds the following identity
 	\[ \mathcal{G}_N (a) = \mathcal{F}_N^{-1} \circ \widehat{\mathcal{G}}_N \circ \mathcal{F}_N (P_Na), \]
-	per le funzioni $  a \in L^2(\mathbb{T}^d, \R^{d_a}) $. Ci si riconduce a dimostrare che gli operatori neurali di Fourier possono approssimare
-	\[ \mathcal{F}_N^{-1}, \ \widehat{\mathcal{G}}_N , \ \mathcal{F}_N (P_Na). \]
+	for any function $  a \in L^2(\mathbb{T}^d, \R^{d_a}) $. So we reconduce to demonstrate that FNO can approximate	\[ \mathcal{F}_N^{-1}, \ \widehat{\mathcal{G}}_N , \ \mathcal{F}_N (P_Na). \]
 \end{frame}
 
 %% ======================================
 
-\begin{frame}[noframenumbering]{Definizione MLP}
+\begin{frame}[noframenumbering]{Definition MLP}
 	Let $ d \in \N $ and $ L\in \N $ with $ L \ge 2 $ and $ \sigma : \R \to \R  $ a non-linear activation function. Let $ A_{\ell} \in \R^{n_{\ell}\times n_{\ell-1}} $, $ b_{\ell} \in \R^{\ell} $ with $ n_{\ell}\in \N $ for $ \ell = 1, \dots, L $	and $ n_{0} = d $. We call multilayer perceptron (MLP) the function defined as
 	\[ \begin{cases}
 		x_{L} = A_{L}x_{L-1} + b_{L} \qquad & \\

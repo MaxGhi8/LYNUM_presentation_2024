@@ -1,0 +1,12 @@
+RNN,False
+arc,Classic
+d_a,1
+width,32
+d_u,1
+modes,12
+fft_norm,
+fun_act,relu
+n_layers,4
+padding,0
+retrain,-1
+weights_norm,Kaiming

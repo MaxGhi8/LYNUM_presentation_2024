@@ -1,0 +1,13 @@
+RNN,False
+arc,Zongyi
+dropout,0.0
+n_patch,3
+d_a,3
+width,32
+d_u,1
+n_layers,4
+modes,24
+fun_act,gelu
+same_params,True
+retrain,-1
+weights_norm,Xavier

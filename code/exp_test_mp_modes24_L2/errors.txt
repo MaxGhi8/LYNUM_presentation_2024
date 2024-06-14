@@ -1,0 +1,5 @@
+Training Error: 0.01146021594107151
+Test relative L^2 error: 0.0211988864839077
+Test relative H^1 error: 0.08063353770918075
+Current Epoch: 500
+Params: 2372233

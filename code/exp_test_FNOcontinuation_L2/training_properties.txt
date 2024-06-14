@@ -1,0 +1,12 @@
+learning_rate,0.001
+scheduler,steplr
+epochs,500
+batch_size,20
+weight_decay,0.0001
+loss,L2
+beta,1
+BC,False
+alpha_BC,1
+training_samples,1000
+test_samples,200
+s,5

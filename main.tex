@@ -65,7 +65,7 @@
 	\vspace{-0.2cm}
 	\begin{enumerate}
 		\item \textbf{Lifting:} linear and local operator 
-		\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = W_{\mathcal{P}}\cdot a(x) + b_{\mathcal{P}}, \ W_{\mathcal{P}} \in \R^{d_{v} \times d_a}, b_{\mathcal{P}} \in \R^{d_v}\]
+		\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = W_{\mathcal{P}}\ a(x) + b_{\mathcal{P}}, \ W_{\mathcal{P}} \in \R^{d_{v} \times d_a}, b_{\mathcal{P}} \in \R^{d_v}\]
 	\vspace{-0.2cm}
 		\pause
 		\item \textbf{Integral operator:} for $ t = 1, \dots, L $
@@ -74,7 +74,7 @@
 		with $ \mathcal{K}_t(a, \theta) $ linear and non-local operator.  
 		\pause
 		\item \textbf{Projection:} linear and local operator 
-		\[\mathcal{Q}:\, \mathcal{U}(D_{L}, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = W_{\mathcal{Q}} + b_{\mathcal{Q}}\cdot v(x), \ W_{\mathcal{Q}} \in \R^{d_{v_u} \times d_{v}}, \ b_{\mathcal{Q}}\in \R^{d_u}. \]		
+		\[\mathcal{Q}:\, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = W_{\mathcal{Q}}\ v(x) + b_{\mathcal{Q}}, \ W_{\mathcal{Q}} \in \R^{d_{u} \times d_{v}}, \ b_{\mathcal{Q}}\in \R^{d_u}. \]		
 	\end{enumerate}
 \end{frame}
 
@@ -113,12 +113,12 @@
 
 \begin{frame}{Definition of Fourier Neural Operator}
 	For defining the Fourier Neural Operator (FNO) we make the following assumptions
-	\[ (\mathcal{K}_t(\theta_t, a)v)(x) = (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x,y) v(y) \ dy = (\kappa_{t, \theta_t} * v)(x)  .\]
+	{\small \[ (\mathcal{K}_t(\theta_t, a)v)(x) = (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x,y) v(y) \ dy = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x-y) v(y) \ dy= (\kappa_{t, \theta_t} * v)(x)  .\]}
 	\pause
 	Using the convolution theorem we have
 	\[ (\kappa_{t, \theta_t} * v)(x) =  \mathcal{F}^{-1}\left( \mathcal{F}( \kappa_{t,\theta_t}) (k) \cdot \mathcal{F}(v)(k) \right)(x), \]
-	and parameterizing $\mathcal{F}( \kappa_{t, \theta_t} )$ with the parameters $R_{\theta, t}(k) \in \C^{d_v \times d_v} \ \forall k \in \Z^d $, we have 
-	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{F}^{-1}\left( R_{\theta,t}(k) \cdot \mathcal{F}(v)(k) \right)(x) \]
+	and parameterizing $\mathcal{F}( \kappa_{t, \theta_t} )$ with the parameters $R_{\theta_t}(k) \in \C^{d_v \times d_v} \ \forall k \in \Z^d $, we have 
+	\[  (\mathcal{K}_t(\theta_t)v)(x)= \mathcal{F}^{-1}\left( R_{\theta_t}(k) \cdot \mathcal{F}(v)(k) \right)(x). \]
 \end{frame}
 
 %% ======================================
@@ -174,7 +174,7 @@
             every node/.style={font=\small}
         }
         % Nodes for the main structure
-        \node[box, label=above:{\textit{Input}}] (input) {$f(x)$};
+        \node[box, label=above:{\textit{Input}}] (input) {$a(x)$};
         \node[box, right=0.5cm of input, label=above:{\textit{Lifting}}] (lifting) { $\mathcal{P}$ };
         \node[bigbox, right=0.5cm of lifting] (fourier1) {$\mathcal{L}_{1}$};
         \node[bigbox, right=0.55cm of fourier1] (fourier2) {$\mathcal{L}_{t}$};
@@ -201,7 +201,7 @@
 		\node[draw, below=0.2cm of internal, rounded corners, inner sep=0.2cm, fill=yellow!30] (internal) {
 			\begin{tikzpicture}[every node/.style={font=\small}]
 				% Nodes for the internal structure
-				\node[box] (vt) {$v(x)$};
+				\node[box] (vt) {$v_t(x)$};
 				\node[box, right=1cm of vt] (transform) {$\mathcal{F}$};
 				\node[box, right=0.5cm of transform, fill=green!25] (nonlinear) { $ R_{\theta_t} $ };
 				\node[box, right=0.5cm of nonlinear] (invtransform) { $ \mathcal{F}^{-1} $ };
@@ -212,7 +212,7 @@
 
 				\node[node_sum, right=0.5cm of invtransform] (node_sum) {$\mathbf{+}$};
 				\node[box, right=0.5cm of node_sum] (activation) {$\sigma$};
-				\node[box, right=0.5cm of activation] (vtplusone) {$v(x)$};
+				\node[box, right=0.5cm of activation] (vtplusone) {$v_{t+1}(x)$};
 				
 				% Draw arrows between nodes
 				\draw[line width = .7pt] ($(vt.east)+(0.05, 0)$) -- (diagonalscaling);
@@ -276,13 +276,13 @@
 		T_n(x) - T_1(x) \quad & n \text{ is odd}.
 	\end{cases} \]	
 	\pause
-	For two dimensional Chebyshev polynomials we define $B_{n_1, n_2}(x, y) = B_{n_1}(x)B_{n_2}(y), \ 0 \le n_1, n_2 \le n$. Considering the square domain $D = [-1, 1]^2$ we notice that there is only a function not equal to zero in each vertex of the square and there are only $n$ functions that are not zero on each edge, $B_{i,j}(x,y) \ 2\le i,j \le n$ are zero on the boundary.
+	For two dimensional Chebyshev polynomials we define $B_{n_1, n_2}(x, y) = B_{n_1}(x)B_{n_2}(y)$, $ 0 \le n_1, n_2 \le n$. Considering the square domain $D = [-1, 1]^2$ we notice that there is only a function not equal to zero in each vertex of the square and there are only $n$ functions that are not zero on each edge, $B_{i,j}(x,y) $ $ 2\le i,j \le n$ are zero on the boundary.
 \end{frame}
 
 %% ======================================
 
 \begin{frame}{Multi-patch domains}
-	If we have the domain $D$ divided in $N$ patches $D_k$ with $D = \bigcup_{k=1}^{N} D_k$ with $D_i \cap D_j = \emptyset$ or $D_i \cap D_j = \Gamma_{ij}$ for $i \neq j$.
+	If we have the domain $D$ divided in $N$ patches $D_\ell$ with $D = \bigcup_{\ell=1}^{N} D_\ell$ with $D_i \cap D_j = \emptyset$ or $D_i \cap D_j = \Gamma_{ij}$ for $i \neq j$.
 	\begin{columns}
 		\begin{column}{0.3\textwidth}
 			\begin{center}
@@ -313,8 +313,8 @@
 			% 	D_2 = [-1,0]\times [0,1],\
 			% 	D_3 = [0,1]^2.
 			% \]
-			We define the boundary adapted Chebyshev basis on each patch $D_k$ and denotes with $B_{i,j}^{k}$ with $k=1,2,3$ and $0 \le i,j \le n$. To ensure the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$ we have to impose that
-			\[ b^{0}_{i, 1} = b^{1}_{i,0}, \quad b^{2}_{0,i} = b^{1}_{1, i}, \quad \forall i = 1, \dots n\]
+			We define the boundary adapted Chebyshev basis on each patch $D_\ell$ and denotes with $B_{i,j}^{\ell}$ with $k=1,2,3$ and $0 \le i,j \le n$. To ensure the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$ we have to impose that
+			\[ b^{0}_{i, 1} = b^{1}_{i,0}, \quad b^{2}_{0,i} = b^{1}_{1, i}, \quad \forall i = 1, \dots, n.\]
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -322,12 +322,13 @@
 %% ======================================
 
 \begin{frame}{Multi-patch Neural Operator}
-The multi-patch neural operator is defined as the Chebyshev neural operator on each patch $D_k$ and the continuity on the interface is imposed using the boundary adapted Chebyshev basis in the following way:
+The multi-patch neural operator is defined as the Chebyshev neural operator on each patch $D_\ell$ and the continuity on the interface is imposed using the boundary adapted Chebyshev basis in the following way:
 \begin{itemize}
-	\item compute the Chebyshev discrete transform of the function $v$ on each patch $D_k$,
-	\item moltiply with the parameters $R_{\theta,t}$,
-	\item compute the boundary adapted Chebyshev coefficients on each patch,
+	\item compute the Chebyshev discrete transform of the function $v$ on each patch $D_k$, $(\mathcal{C}v^{\ell})(k)$ with $\ell=1,2,3$ and $0 \le i,j \le n$,
+	\item multiply with the neural operator parameters $R_{\theta_t}(k) \cdot (\mathcal{C}v^{\ell})(k)$,
+	\item compute the boundary adapted Chebyshev coefficients on each patch $b^{\ell}(k)$,
 	\item impose the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$,
+	\[ \text{update } b^{0}_{i, 1},\ b^{1}_{i,0} \text{ with } \frac{b^{0}_{i, 1} + b^{1}_{i,0}}{2}, \quad  \text{ update } b^{2}_{0,i}, \ b^{1}_{1, i} \text{ with } \frac{b^{2}_{0,i} + b^{1}_{1, i}}{2}, \quad \forall i = 1, \dots, n.\]
 	\item go back to the Chebyshev coefficients on each patch,
 	\item compute the Chebyshev inverse transform on each patch.
 \end{itemize}
@@ -421,10 +422,10 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
     \end{center}
 	\begin{table}[h!] %booktabs
 		\centering
-		\begin{tabular}{cccc}\toprule
-		rel. train error $ L^2 $ & rel. test error $L^2$ & parameters & epochs \\
-			\cmidrule{1-4}
-			$ 0.0282 $ & $0.0229$ & $ 2\, 363\, 681 $ & $500$ \\
+		\begin{tabular}{ccccc}\toprule
+		rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters & epochs \\
+			\cmidrule{1-5}
+			$ 0.0182 $ & $0.0229$ & $12$ & $ 2\, 363\, 681 $ & $500$ \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
@@ -452,10 +453,10 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
     \end{center}
 	\begin{table}[h!] %booktabs
 		\centering
-		\begin{tabular}{cccc}\toprule
-		rel. train error $ L^2 $ & rel. test error $L^2$ & parameters & epochs \\
-			\cmidrule{1-4}
-			$ 0.0115 $ & $0.0212$ & $ 2\, 372\, 233 $ & $500$ \\
+		\begin{tabular}{ccccc}\toprule
+		rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters & epochs \\
+			\cmidrule{1-5}
+			$ 0.0115 $ & $0.0212$ & $24$ &$ 2\, 372\, 233 $ & $500$ \\
 			\bottomrule
 		\end{tabular}
 	\end{table}

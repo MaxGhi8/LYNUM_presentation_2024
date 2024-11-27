@@ -64,17 +64,17 @@
 	\[ \mathcal{N}_{\theta} :\mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{u}}), \quad \text{with } D \subset \R^d, \quad	\mathcal{N}_{\theta} := \mathcal{Q} \circ \mathcal{L}_L \circ \cdots \circ \mathcal{L}_1 \circ \mathcal{P} . \]
 	\vspace{-0.2cm}
 	\begin{enumerate}
-		\item \textbf{Lifting:} linear and local operator 
-		\[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = W_{\mathcal{P}}\ a(x) + b_{\mathcal{P}}, \ W_{\mathcal{P}} \in \R^{d_{v} \times d_a}, b_{\mathcal{P}} \in \R^{d_v}\]
-	\vspace{-0.2cm}
-		\pause
+		\item \textbf{Lifting:} linear and local operator
+		      \[\mathcal{P}:\, \mathcal{A}(D, \R^{d_a}) \to \mathcal{U}(D, \R^{d_{v}}), \quad  \mathcal{P}(a)(x) = W_{\mathcal{P}}\ a(x) + b_{\mathcal{P}}, \ W_{\mathcal{P}} \in \R^{d_{v} \times d_a}, b_{\mathcal{P}} \in \R^{d_v}\]
+		      \vspace{-0.2cm}
+		      \pause
 		\item \textbf{Integral operator:} for $ t = 1, \dots, L $
-		\[ \mathcal{L}_t : \, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{v}}) \]
-		\[  \mathcal{L}_t(v)(x) := \sigma\Big( W_t v(x)+ b_t + (\mathcal{K}_t(a, \theta) v)(x) \Big) \]
-		with $ \mathcal{K}_t(a, \theta) $ linear and non-local operator.  
-		\pause
-		\item \textbf{Projection:} linear and local operator 
-		\[\mathcal{Q}:\, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = W_{\mathcal{Q}}\ v(x) + b_{\mathcal{Q}}, \ W_{\mathcal{Q}} \in \R^{d_{u} \times d_{v}}, \ b_{\mathcal{Q}}\in \R^{d_u}. \]		
+		      \[ \mathcal{L}_t : \, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{v}}) \]
+		      \[  \mathcal{L}_t(v)(x) := \sigma\Big( W_t v(x)+ b_t + (\mathcal{K}_t(a, \theta) v)(x) \Big) \]
+		      with $ \mathcal{K}_t(a, \theta) $ linear and non-local operator.  
+		      \pause
+		\item \textbf{Projection:} linear and local operator
+		      \[\mathcal{Q}:\, \mathcal{U}(D, \R^{d_{v}}) \to  \mathcal{U}(D, \R^{d_{u}}), \quad  \mathcal{Q}(v)(x) = W_{\mathcal{Q}}\ v(x) + b_{\mathcal{Q}}, \ W_{\mathcal{Q}} \in \R^{d_{u} \times d_{v}}, \ b_{\mathcal{Q}}\in \R^{d_u}. \]
 	\end{enumerate}
 \end{frame}
 
@@ -113,7 +113,7 @@
 
 \begin{frame}{Definition of Fourier Neural Operator}
 	For defining the Fourier Neural Operator (FNO) we make the following assumptions
-	{\small \[ (\mathcal{K}_t(\theta_t, a)v)(x) = (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x,y) v(y) \ dy = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x-y) v(y) \ dy= (\kappa_{t, \theta_t} * v)(x)  .\]}
+		{\small \[ (\mathcal{K}_t(\theta_t, a)v)(x) = (\mathcal{K}_t(\theta_t)v)(x) = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x,y) v(y) \ dy = \int_{\mathbb{T}^d} \kappa_{t,\theta_t}(x-y) v(y) \ dy= (\kappa_{t, \theta_t} * v)(x)  .\]}
 	\pause
 	Using the convolution theorem we have
 	\[ (\kappa_{t, \theta_t} * v)(x) =  \mathcal{F}^{-1}\left( \mathcal{F}( \kappa_{t,\theta_t}) (k) \cdot \mathcal{F}(v)(k) \right)(x), \]
@@ -124,14 +124,14 @@
 %% ======================================
 
 \begin{frame}{Universal approximation for FNOs \footnote{N. Kovachki, S. Lanthaler, S. Mishra, "On universal approximation and error bounds for fourier neural operators"}}
-\begin{themedTitleBlock}{Universal approximation theorem} % \cite{kovachki2021universal}
-	Given $ s, s' \ge 0 $ and 
-	\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
-	continuous operator. Given $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ a compact subset and $ \sigma \in \C^{\infty}(\R) $ non-linear and globally Lipschitz activation function. Then, for all $ \varepsilon > 0 $, exists a Fourier Neural Operator
-	\[ \mathcal{N}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
-	such that:
-	\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
-\end{themedTitleBlock}	
+	\begin{themedTitleBlock}{Universal approximation theorem} % \cite{kovachki2021universal}
+		Given $ s, s' \ge 0 $ and 
+		\[ \mathcal{G}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
+		continuous operator. Given $ K \subset H^s(\mathbb{T}^d, \R^{d_a}) $ a compact subset and $ \sigma \in \C^{\infty}(\R) $ non-linear and globally Lipschitz activation function. Then, for all $ \varepsilon > 0 $, exists a Fourier Neural Operator
+		\[ \mathcal{N}: H^s(\mathbb{T}^d, \R^{d_a}) \to H^{s'}(\mathbb{T}^d, \R^{d_u}) \]
+		such that:
+		\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
+	\end{themedTitleBlock}
 \end{frame}
 
 %% ======================================
@@ -159,78 +159,78 @@
 		\[ \mathcal{N}^{*}: L^2_N(\mathbb{T}^d, \R^{d_a}) \to L^2_N(\mathbb{T}^d, \R^{d_u}) \]
 		satisfy:
 		\[ \underset{a \in K}{sup}\, \left\| \mathcal{G}(a) - \mathcal{N}^{*}(a) \right\|_{H^{s'}} \le \varepsilon.  \]
-	\end{themedTitleBlock}	
+	\end{themedTitleBlock}
 \end{frame}
 
 %% ======================================
 
 \begin{frame}{Representation of $\psi$-FNO}
-    \begin{center}
+	\begin{center}
 		\movie[externalviewer]{\begin{tikzpicture}
-        \tikzset{
-            box/.style={draw, rounded corners, align=center, minimum height=0.8cm, minimum width=1cm, fill=orange!30},
-            bigbox/.style={draw, rounded corners, align=center, minimum height=2cm, minimum width=1cm, fill=yellow!30},
-            node_sum/.style={draw, circle, fill=white, inner sep=0pt, minimum size=4mm},
-            every node/.style={font=\small}
-        }
-        % Nodes for the main structure
-        \node[box, label=above:{\textit{Input}}] (input) {$a(x)$};
-        \node[box, right=0.5cm of input, label=above:{\textit{Lifting}}] (lifting) { $\mathcal{P}$ };
-        \node[bigbox, right=0.5cm of lifting] (fourier1) {$\mathcal{L}_{1}$};
-        \node[bigbox, right=0.55cm of fourier1] (fourier2) {$\mathcal{L}_{t}$};
-        \node[bigbox, right=0.55cm of fourier2] (fourier3) {$\mathcal{L}_{L}$};
-        \node[box, right=0.5cm of fourier3, label=above:{\textit{Projection}}] (projection) {$\mathcal{Q}$};
-        \node[box, right=0.5cm of projection, label=above:{\textit{Output}}] (output) {$u(x)$};
-        
-        % Draw arrows between nodes
-        \draw[->, line width = .7pt] ($(input.east)+(0.05, 0)$) -- ($(lifting.west)-(0.05,0)$);
-        \draw[->, line width = .7pt] ($(lifting.east)+(0.05, 0)$) -- ($(fourier1.west)-(0.03,0)$);
-        \draw[dotted, line width = 2pt] ($(fourier1.east)+(0.1, 0)$) -- ($(fourier2.west)-(0.1,0)$);
-        \draw[dotted, line width = 2pt] ($(fourier2.east)+(0.1, 0)$) -- ($(fourier3.west)-(0.1,0)$);
-        \draw[->, line width = .7pt] ($(fourier3.east)+(0.05, 0)$) -- ($(projection.west)-(0.05,0)$);
-        \draw[->, line width = .7pt] ($(projection.east)+(0.05, 0)$) -- ($(output.west)-(0.05,0)$);
-        
-        % Annotations for the Fourier Layers
-        \node[align=center, above=0.2cm of fourier2, font=\footnotesize] { \textit{Fourier Layers} };
-        
-        % Internal structure bounding box
-        \node[draw, line width = .7pt, rounded corners, inner sep=0.2cm, fit= (fourier1) (fourier2) (fourier3)] (internal) {};
-
-        %%% Second part of the plot
-        % Internal structure bounding box
-		\node[draw, below=0.2cm of internal, rounded corners, inner sep=0.2cm, fill=yellow!30] (internal) {
-			\begin{tikzpicture}[every node/.style={font=\small}]
-				% Nodes for the internal structure
-				\node[box] (vt) {$v_t(x)$};
-				\node[box, right=1cm of vt] (transform) {$\mathcal{F}$};
-				\node[box, right=0.5cm of transform, fill=green!25] (nonlinear) { $ R_{\theta_t} $ };
-				\node[box, right=0.5cm of nonlinear] (invtransform) { $ \mathcal{F}^{-1} $ };
-				\node[box, below=0.8cm of nonlinear, fill=green!25] (linear) { $ W_t, b_t $ };
-
-                % Internal structure bounding box
-                \node[draw, line width = .7pt, rounded corners, inner sep=0.15cm, fit= (transform) (nonlinear) (invtransform) ] (diagonalscaling) {};
-
-				\node[node_sum, right=0.5cm of invtransform] (node_sum) {$\mathbf{+}$};
-				\node[box, right=0.5cm of node_sum] (activation) {$\sigma$};
-				\node[box, right=0.5cm of activation] (vtplusone) {$v_{t+1}(x)$};
+				\tikzset{
+					box/.style={draw, rounded corners, align=center, minimum height=0.8cm, minimum width=1cm, fill=orange!30},
+					bigbox/.style={draw, rounded corners, align=center, minimum height=2cm, minimum width=1cm, fill=yellow!30},
+					node_sum/.style={draw, circle, fill=white, inner sep=0pt, minimum size=4mm},
+					every node/.style={font=\small}
+				}
+				% Nodes for the main structure
+				\node[box, label=above:{\textit{Input}}] (input) {$a(x)$};
+				\node[box, right=0.5cm of input, label=above:{\textit{Lifting}}] (lifting) { $\mathcal{P}$ };
+				\node[bigbox, right=0.5cm of lifting] (fourier1) {$\mathcal{L}_{1}$};
+				\node[bigbox, right=0.55cm of fourier1] (fourier2) {$\mathcal{L}_{t}$};
+				\node[bigbox, right=0.55cm of fourier2] (fourier3) {$\mathcal{L}_{L}$};
+				\node[box, right=0.5cm of fourier3, label=above:{\textit{Projection}}] (projection) {$\mathcal{Q}$};
+				\node[box, right=0.5cm of projection, label=above:{\textit{Output}}] (output) {$u(x)$};
 				
 				% Draw arrows between nodes
-				\draw[line width = .7pt] ($(vt.east)+(0.05, 0)$) -- (diagonalscaling);
-				\draw[->, line width = .7pt] ($(transform.east)+(0.05, 0)$) -- ($(nonlinear.west)-(0.05, 0)$);
-				\draw[->, line width = .7pt] ($(nonlinear.east)+(0.05, 0)$) -- ($(invtransform.west)-(0.05, 0)$);
-				\draw[->, line width = .7pt] ($(vt.south)-(0, 0.05)$) |- ($(linear.west)-(0.05, 0)$);
-				\draw[->, line width = .7pt] (diagonalscaling) -- ($(node_sum.west)-(0.05, 0)$);
-				\draw[->, line width = .7pt] ($(linear.east)+(0.05, 0)$) -| ($(node_sum.south)-(0, 0.05)$);
-				\draw[->, line width = .7pt] ($(node_sum.east)+(0.05, 0)$) -- ($(activation.west)-(0.05, 0)$);
-				\draw[->, line width = .7pt] ($(activation.east)+(0.05, 0)$) -- ($(vtplusone.west)-(0.05, 0)$);
-
-			\end{tikzpicture}
-		};
-        % Connection between the two parts
-        \draw[] ($(internal.north west)+(0.1, 0.05)$) -- (fourier2.south west);
-        \draw[] ($(internal.north east)+(-0.1, 0.05)$) -- (fourier2.south east);
-    \end{tikzpicture}}{FNO_architecture.mp4}
-    \end{center}
+				\draw[->, line width = .7pt] ($(input.east)+(0.05, 0)$) -- ($(lifting.west)-(0.05,0)$);
+				\draw[->, line width = .7pt] ($(lifting.east)+(0.05, 0)$) -- ($(fourier1.west)-(0.03,0)$);
+				\draw[dotted, line width = 2pt] ($(fourier1.east)+(0.1, 0)$) -- ($(fourier2.west)-(0.1,0)$);
+				\draw[dotted, line width = 2pt] ($(fourier2.east)+(0.1, 0)$) -- ($(fourier3.west)-(0.1,0)$);
+				\draw[->, line width = .7pt] ($(fourier3.east)+(0.05, 0)$) -- ($(projection.west)-(0.05,0)$);
+				\draw[->, line width = .7pt] ($(projection.east)+(0.05, 0)$) -- ($(output.west)-(0.05,0)$);
+				
+				% Annotations for the Fourier Layers
+				\node[align=center, above=0.2cm of fourier2, font=\footnotesize] { \textit{Fourier Layers} };
+				
+				% Internal structure bounding box
+				\node[draw, line width = .7pt, rounded corners, inner sep=0.2cm, fit= (fourier1) (fourier2) (fourier3)] (internal) {};
+				
+				%%% Second part of the plot
+				% Internal structure bounding box
+				\node[draw, below=0.2cm of internal, rounded corners, inner sep=0.2cm, fill=yellow!30] (internal) {
+					\begin{tikzpicture}[every node/.style={font=\small}]
+						% Nodes for the internal structure
+						\node[box] (vt) {$v_t(x)$};
+						\node[box, right=1cm of vt] (transform) {$\mathcal{F}$};
+						\node[box, right=0.5cm of transform, fill=green!25] (nonlinear) { $ R_{\theta_t} $ };
+						\node[box, right=0.5cm of nonlinear] (invtransform) { $ \mathcal{F}^{-1} $ };
+						\node[box, below=0.8cm of nonlinear, fill=green!25] (linear) { $ W_t, b_t $ };
+						
+						% Internal structure bounding box
+						\node[draw, line width = .7pt, rounded corners, inner sep=0.15cm, fit= (transform) (nonlinear) (invtransform) ] (diagonalscaling) {};
+						
+						\node[node_sum, right=0.5cm of invtransform] (node_sum) {$\mathbf{+}$};
+						\node[box, right=0.5cm of node_sum] (activation) {$\sigma$};
+						\node[box, right=0.5cm of activation] (vtplusone) {$v_{t+1}(x)$};
+						
+						% Draw arrows between nodes
+						\draw[line width = .7pt] ($(vt.east)+(0.05, 0)$) -- (diagonalscaling);
+						\draw[->, line width = .7pt] ($(transform.east)+(0.05, 0)$) -- ($(nonlinear.west)-(0.05, 0)$);
+						\draw[->, line width = .7pt] ($(nonlinear.east)+(0.05, 0)$) -- ($(invtransform.west)-(0.05, 0)$);
+						\draw[->, line width = .7pt] ($(vt.south)-(0, 0.05)$) |- ($(linear.west)-(0.05, 0)$);
+						\draw[->, line width = .7pt] (diagonalscaling) -- ($(node_sum.west)-(0.05, 0)$);
+						\draw[->, line width = .7pt] ($(linear.east)+(0.05, 0)$) -| ($(node_sum.south)-(0, 0.05)$);
+						\draw[->, line width = .7pt] ($(node_sum.east)+(0.05, 0)$) -- ($(activation.west)-(0.05, 0)$);
+						\draw[->, line width = .7pt] ($(activation.east)+(0.05, 0)$) -- ($(vtplusone.west)-(0.05, 0)$);
+						
+					\end{tikzpicture}
+				};
+				% Connection between the two parts
+				\draw[] ($(internal.north west)+(0.1, 0.05)$) -- (fourier2.south west);
+				\draw[] ($(internal.north east)+(-0.1, 0.05)$) -- (fourier2.south east);
+			\end{tikzpicture}}{FNO_architecture.mp4}
+	\end{center}
 \end{frame}
 
 %% ======================================
@@ -244,13 +244,13 @@
 	\begin{themedTitleBlock}{Periodic extension operator}
 		Let $\Omega \subset \R^d$ be a bounded and Lipschitz domain. There exists a continuous. linear operator $\mathcal{E}: W^{m,p}(\Omega) \to W^{m,p}(B)$ for any $m \ge 0$ and $1 \le p < \infty$, where $B$ is an hyper-cube containing $\Omega$, such that, for any $u \in W^{m,p}(\Omega)$:
 		\begin{itemize}
-			\item $\mathcal{E}(u)_{|_{\Omega}} = u$, 
+			\item $\mathcal{E}(u)_{|_{\Omega}} = u$,
 			\item $\mathcal{E}(u)$ is periodic on $B$, including its derivatives.
 		\end{itemize}
 	\end{themedTitleBlock}
 	\pause	
 	But this can be computationally expensive.
-
+	
 \end{frame}
 
 
@@ -272,9 +272,9 @@
 \begin{frame}{Boundary adapted Chebyshev basis}
 	The one dimensional Chebyshev polynomials are defined on the interval $ [-1, 1] $, as $T_n(\cos(\theta)) = \cos(n\theta)$, $n \in \N$ with the property that $T_n(1) = 1$ and $T_n(-1) = (-1)^n$. We define the boundary adapted Chebyshev basis as $B_0(x) = \frac12(-x+1)$, $B_1(x) = \frac12(x+1)$ and for $n \ge 2$
 	\[ B_n(x) = \begin{cases}
-		T_n(x) - T_0(x) \quad & n \text{ is even},\\
-		T_n(x) - T_1(x) \quad & n \text{ is odd}.
-	\end{cases} \]	
+			T_n(x) - T_0(x) \quad & n \text{ is even}, \\
+			T_n(x) - T_1(x) \quad & n \text{ is odd}.
+		\end{cases} \]
 	\pause
 	For two dimensional Chebyshev polynomials we define $B_{n_1, n_2}(x, y) = B_{n_1}(x)B_{n_2}(y)$, $ 0 \le n_1, n_2 \le n$. Considering the square domain $D = [-1, 1]^2$ we notice that there is only a function not equal to zero in each vertex of the square and there are only $n$ functions that are not zero on each edge, $B_{i,j}(x,y) $ $ 2\le i,j \le n$ are zero on the boundary.
 \end{frame}
@@ -306,7 +306,7 @@
 		\end{column}%
 		\begin{column}{0.7\textwidth}
 			We consider the L-domain 
-			\[ D = [-1, 1]^2\setminus ([0,1]\times [-1,0]) \] 
+			\[ D = [-1, 1]^2\setminus ([0,1]\times [-1,0]) \]
 			divided in $N=3$ patches $ D_1, D_2, D_3 $.
 			% \[
 			% 	D_1 = [-1,0]^2,\
@@ -322,17 +322,17 @@
 %% ======================================
 
 \begin{frame}{Multi-patch Neural Operator}
-The multi-patch neural operator is defined as the Chebyshev neural operator on each patch $D_\ell$ and the continuity on the interface is imposed using the boundary adapted Chebyshev basis in the following way:
-\begin{itemize}
-	\item compute the Chebyshev discrete transform of the function $v$ on each patch $D_k$, $(\mathcal{C}v^{\ell})(k)$ with $\ell=1,2,3$ and $0 \le i,j \le n$,
-	\item multiply with the neural operator parameters $R_{\theta_t}(k) \cdot (\mathcal{C}v^{\ell})(k)$,
-	\item compute the boundary adapted Chebyshev coefficients on each patch $b^{\ell}(k)$,
-	\item impose the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$,
-	\[ \text{update } b^{0}_{i, 1},\ b^{1}_{i,0} \text{ with } \frac{b^{0}_{i, 1} + b^{1}_{i,0}}{2}, \quad  \text{ update } b^{2}_{0,i}, \ b^{1}_{1, i} \text{ with } \frac{b^{2}_{0,i} + b^{1}_{1, i}}{2}, \quad \forall i = 1, \dots, n.\]
-	\item go back to the Chebyshev coefficients on each patch,
-	\item compute the Chebyshev inverse transform on each patch.
-\end{itemize}
-
+	The multi-patch neural operator is defined as the Chebyshev neural operator on each patch $D_\ell$ and the continuity on the interface is imposed using the boundary adapted Chebyshev basis in the following way:
+	\begin{itemize}
+		\item compute the Chebyshev discrete transform of the function $v$ on each patch $D_k$, $(\mathcal{C}v^{\ell})(k)$ with $\ell=1,2,3$ and $0 \le i,j \le n$,
+		\item multiply with the neural operator parameters $R_{\theta_t}(k) \cdot (\mathcal{C}v^{\ell})(k)$,
+		\item compute the boundary adapted Chebyshev coefficients on each patch $b^{\ell}(k)$,
+		\item impose the continuity on the interface $\Gamma_{1,2}$ and $\Gamma_{2,3}$,
+		      \[ \text{update } b^{0}_{i, 1},\ b^{1}_{i,0} \text{ with } \frac{b^{0}_{i, 1} + b^{1}_{i,0}}{2}, \quad  \text{ update } b^{2}_{0,i}, \ b^{1}_{1, i} \text{ with } \frac{b^{2}_{0,i} + b^{1}_{1, i}}{2}, \quad \forall i = 1, \dots, n.\]
+		\item go back to the Chebyshev coefficients on each patch,
+		\item compute the Chebyshev inverse transform on each patch.
+	\end{itemize}
+	
 \end{frame}
 
 %% ======================================
@@ -344,9 +344,9 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 \begin{frame}{Problema di Darcy}
 	For our numerical experiments we consider the Darcy problem:
 	\[ 	\begin{cases}
-		- \nabla(a \cdot \nabla u) = f,\quad &  \mathrm{in}\ D\\
-		u = 0, & \mathrm{on} \ \partial D
-	\end{cases} \]
+			- \nabla(a \cdot \nabla u) = f,\quad & \mathrm{in}\ D            \\
+			u = 0,                               & \mathrm{on} \ \partial D
+		\end{cases} \]
 	with the L-domain $ D = [-1, 1]^2\setminus ((0,1)\times (-1,0)) $, diffusion coefficient $\ a \in \mathcal{A} = L^{\infty}(D, \R^+) $,  and $\ f \equiv 1 $. With this settings exists a unique solution $ u \in H^1_0(D, \R) $ and so we can define the solution operator 
 	\[  \mathcal{G}: L^{\infty}(D, \R^+) \to H^1_0(D, \R), \qquad \mathcal{G}:a \mapsto u. \]
 \end{frame}
@@ -366,14 +366,14 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 			% \end{cases}. \]
 		\end{column}%
 		\begin{column}{0.2\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_input.png}
+			\includegraphics[width=\textwidth]{FNO_continuation_input.png}
 		\end{column}
 	\end{columns}
 	\vspace{0.3cm}
 	\pause
 	\begin{columns}
 		\begin{column}{0.2\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_output.png}
+			\includegraphics[width=\textwidth]{FNO_continuation_output.png}
 		\end{column}%
 		\begin{column}{0.8\textwidth}
 			For the output we approximate the solution of the Darcy problem solution $ u^{(i)} = \mathcal{G}(a^{(i)}) $ using the isogeometric geoPDEs library.
@@ -404,28 +404,28 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 
 \begin{frame}{Fourier continuation numerical experiments}
 	\begin{center}
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=0.93\textwidth]{FNO_continuation_input.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_output.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_appro.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{FNO_continuation_error.png}
-        \end{minipage}
-    \end{center}
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=0.93\textwidth]{FNO_continuation_input.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{FNO_continuation_output.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{FNO_continuation_appro.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{FNO_continuation_error.png}
+		\end{minipage}
+	\end{center}
 	\begin{table}[h!] %booktabs
 		\centering
 		\begin{tabular}{ccccc}\toprule
-		rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters & epochs \\
+			rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters        & epochs \\
 			\cmidrule{1-5}
-			$ 0.0182 $ & $0.0229$ & $12$ & $ 2\, 363\, 681 $ & $500$ \\
+			$ 0.0182 $               & $0.0229$              & $12$  & $ 2\, 363\, 681 $ & $500$  \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
@@ -435,28 +435,28 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 
 \begin{frame}{Multi-patch neural operator numerical experiments}
 	\begin{center}
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{MPNO_input.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{MPNO_output.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{MPNO_appro.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.24\textwidth}
-            \includegraphics[width=\textwidth]{MPNO_error.png}
-        \end{minipage}
-    \end{center}
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{MPNO_input.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{MPNO_output.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{MPNO_appro.png}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.24\textwidth}
+			\includegraphics[width=\textwidth]{MPNO_error.png}
+		\end{minipage}
+	\end{center}
 	\begin{table}[h!] %booktabs
 		\centering
 		\begin{tabular}{ccccc}\toprule
-		rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters & epochs \\
+			rel. train error $ L^2 $ & rel. test error $L^2$ & modes & parameters        & epochs \\
 			\cmidrule{1-5}
-			$ 0.0115 $ & $0.0212$ & $24$ &$ 2\, 372\, 233 $ & $500$ \\
+			$ 0.0115 $               & $0.0212$              & $24$  & $ 2\, 372\, 233 $ & $500$  \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
@@ -503,18 +503,18 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 \begin{frame}[noframenumbering]{Trasformata di Fourier}
 	\centering
 	\begin{itemize}
-		\item  Given $ v \in  L^2(\mathbb{T}^d) $, the Fourier transform is defined as 
-		\[ \begin{split}
-			\mathcal{F} : \ & L^{2}(\mathbb{T}^d, \C^{n})\to \ell^{2}(\Z^d, \C^{n})\\
-			& v \mapsto \mathcal{F}(v)
-		\end{split} \]
-		\[ \mathcal{F}(v)(k) := \frac{1}{(2 \pi)^{d}} \int_{\mathbb{T}^{d}}v(x) e^{-i \left\langle k , x \right\rangle} \ dx,  \quad \forall k \in \Z^d. \]
-		\item Given $ \widehat{v} = \left\lbrace \widehat{v}_k\right\rbrace_{k \in \Z^d} \in \ell^{2}(\Z^d, \C^{n}) $, the anti-Fourier transform is defined as 
-		\[ \begin{split}
-			\mathcal{F}^{-1} : \ & \ell^{2}(\Z^d, \C^{n}) \to L^{2}(D, \C^{n})\\
-			& \widehat{v} \mapsto \mathcal{F}^{-1}(\widehat{v})
-		\end{split} \]
-		\[ (\mathcal{F}^{-1}\widehat{v})(x) = \sum_{k \in \Z^d} \widehat{v}_k e^{i \left\langle k , x \right\rangle } \qquad \forall x \in D. \]
+		\item  Given $ v \in  L^2(\mathbb{T}^d) $, the Fourier transform is defined as
+		      \[ \begin{split}
+				      \mathcal{F} : \  & L^{2}(\mathbb{T}^d, \C^{n})\to \ell^{2}(\Z^d, \C^{n}) \\
+				                       & v \mapsto \mathcal{F}(v)
+			      \end{split} \]
+		      \[ \mathcal{F}(v)(k) := \frac{1}{(2 \pi)^{d}} \int_{\mathbb{T}^{d}}v(x) e^{-i \left\langle k , x \right\rangle} \ dx,  \quad \forall k \in \Z^d. \]
+		\item Given $ \widehat{v} = \left\lbrace \widehat{v}_k\right\rbrace_{k \in \Z^d} \in \ell^{2}(\Z^d, \C^{n}) $, the anti-Fourier transform is defined as
+		      \[ \begin{split}
+				      \mathcal{F}^{-1} : \  & \ell^{2}(\Z^d, \C^{n}) \to L^{2}(D, \C^{n})       \\
+				                            & \widehat{v} \mapsto \mathcal{F}^{-1}(\widehat{v})
+			      \end{split} \]
+		      \[ (\mathcal{F}^{-1}\widehat{v})(x) = \sum_{k \in \Z^d} \widehat{v}_k e^{i \left\langle k , x \right\rangle } \qquad \forall x \in D. \]
 	\end{itemize}
 \end{frame}
 
@@ -534,12 +534,12 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 	\centering
 	\begin{itemize}
 		\item The definition of the projection on the trigonometric polynomial is
-		\[ P_N: L^{2}(\mathbb{T}^d) \to L^{2}_N(\mathbb{T}^d),  \]
-		\[ P_N\left(\sum_{k \in \Z^d} c_k e^{i \left\langle x, k \right\rangle } \right) = \sum_{|k|_{\infty}\le N} c_k e^{i \left\langle x, k \right\rangle }, \qquad \forall (c_k)_{k \in \Z^d} \in \ell^2(\Z^d). \]
+		      \[ P_N: L^{2}(\mathbb{T}^d) \to L^{2}_N(\mathbb{T}^d),  \]
+		      \[ P_N\left(\sum_{k \in \Z^d} c_k e^{i \left\langle x, k \right\rangle } \right) = \sum_{|k|_{\infty}\le N} c_k e^{i \left\langle x, k \right\rangle }, \qquad \forall (c_k)_{k \in \Z^d} \in \ell^2(\Z^d). \]
 		\item If the universal approximation theorem holds for $ s'=0 $ then it holds for any value of $ s' \ge 0 $.
 		\item We fix $ s' = 0 $  \[ \mathcal{G}_{N}: H^{s}(\mathbb{T}^d, \R^{d_a}) \to L^2(\mathbb{T}^d, \R^{d_u}), \qquad \mathcal{G}_{N}(a):= P_N  \mathcal{G} (P_Na), \]
-		holds that $ \forall \varepsilon > 0 $, $ \exists N \in \N $ such that
-		\[ \left\|\mathcal{G}(a) - \mathcal{G}_N(a) \right\|_{L^2} \le \varepsilon, \qquad \forall a \in K. \]
+		      holds that $ \forall \varepsilon > 0 $, $ \exists N \in \N $ such that
+		      \[ \left\|\mathcal{G}(a) - \mathcal{G}_N(a) \right\|_{L^2} \le \varepsilon, \qquad \forall a \in K. \]
 	\end{itemize}
 \end{frame}
 
@@ -558,9 +558,9 @@ The multi-patch neural operator is defined as the Chebyshev neural operator on e
 \begin{frame}[noframenumbering]{Definition MLP}
 	Let $ d \in \N $ and $ L\in \N $ with $ L \ge 2 $ and $ \sigma : \R \to \R  $ a non-linear activation function. Let $ A_{\ell} \in \R^{n_{\ell}\times n_{\ell-1}} $, $ b_{\ell} \in \R^{\ell} $ with $ n_{\ell}\in \N $ for $ \ell = 1, \dots, L $	and $ n_{0} = d $. We call multilayer perceptron (MLP) the function defined as
 	\[ \begin{cases}
-		x_{L} = A_{L}x_{L-1} + b_{L} \qquad & \\
-		x_{\ell} = \sigma\left( A_{\ell}x_{\ell-1} + b_{\ell} \right) 
-	\end{cases}, \]
+			x_{L} = A_{L}x_{L-1} + b_{L} \qquad & \\
+			x_{\ell} = \sigma\left( A_{\ell}x_{\ell-1} + b_{\ell} \right)
+		\end{cases}, \]
 	where $ x_0 $ is the input and $ x_{L} $ is the output of the function.
 \end{frame}
 
@@ -596,12 +596,12 @@ The \uncover command makes the text visible starting from the specified slide nu
 
 
 \begin{columns} % adding [onlytextwidth] the left margins will be set correctly
-    \begin{column}{0.50\textwidth}
-        
-    \end{column}%
-    \begin{column}{0.50\textwidth}
-        
-    \end{column}
+	\begin{column}{0.50\textwidth}
+		
+	\end{column}%
+	\begin{column}{0.50\textwidth}
+		
+	\end{column}
 \end{columns}
 
 
@@ -610,13 +610,13 @@ The \uncover command makes the text visible starting from the specified slide nu
 
 % for a single monocrome block
 \begin{themedColorBlock}{ `title` }
-    `content`
+	`content`
 \end{themedColorBlock}
 
 
 % for block with highlighted title
 \begin{themedTitleBlock}{ `title` }
-    `content`
+	`content`
 \end{themedTitleBlock}
 
 
